@@ -2,7 +2,7 @@ import React, { useState, useRef ,useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from 'swiper/modules';
+import { Navigation,Keyboard } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import "../dashboard/dashboardstyles.css"; // Import the custom CSS here
@@ -86,8 +86,9 @@ function Dispatch() {
           // Add more breakpoints if needed
         }}
       
-        modules={[Navigation]}
+        modules={[Navigation, Keyboard]}
         navigation={{ clickable: true }}
+        keyboard={{ enabled: true }}
         loop={true} 
         >
 
