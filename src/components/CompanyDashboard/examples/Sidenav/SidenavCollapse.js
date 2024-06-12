@@ -15,6 +15,7 @@ Coded by www.creative-tim.com
 
 // prop-types is a library for typechecking of props.
 import PropTypes from "prop-types";
+import React, { forwardRef } from "react";
 
 // @mui material components
 import ListItem from "@mui/material/ListItem";
@@ -36,12 +37,12 @@ import {
 // Material Dashboard 2 React context
 import { useMaterialUIController } from "../../context";
 
-function SidenavCollapse({ icon, name, active, ...rest }) {
+const SidenavCollapse = forwardRef(({ icon, name, active, ...rest }, ref) => {
   const [controller] = useMaterialUIController();
   const { miniSidenav, transparentSidenav, whiteSidenav, darkMode, sidenavColor } = controller;
 
   return (
-    <ListItem component="li">
+    <ListItem component="li" ref={ref}>
       <MDBox
         {...rest}
         sx={(theme) =>
@@ -80,7 +81,7 @@ function SidenavCollapse({ icon, name, active, ...rest }) {
       </MDBox>
     </ListItem>
   );
-}
+});
 
 // Setting default values for the props of SidenavCollapse
 SidenavCollapse.defaultProps = {
