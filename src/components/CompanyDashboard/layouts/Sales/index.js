@@ -21,6 +21,8 @@ import EntranceIcon from '@mui/icons-material/ExitToApp';
 import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
 import Orders from "../orders";
 import { Link as ScrollLink } from 'react-scroll';
+import Button from '@mui/material/Button';
+import RegisterIcon from '@mui/icons-material/AppRegistration';
 
 
 function Dashboard() {
@@ -80,7 +82,7 @@ function Dashboard() {
             slidesPerView: 2,  // 1 slide per view for screens up to 900px
           },
           1300: {
-            slidesPerView: 4, // 4 slides per view for screens larger than 1300px
+            slidesPerView: 3, // 4 slides per view for screens larger than 1300px
           },
           // Add more breakpoints if needed
         }}
@@ -131,7 +133,18 @@ function Dashboard() {
                       <div>AvgRate</div>
                       <div>4000</div>
                     </div>
-                  </div>
+                              <Button
+                                variant="contained"
+                                color="primary"
+                                size="small"
+                                startIcon={<RegisterIcon />}
+                                style={{ marginLeft: '23px', padding: '2px 6px', fontSize: '12px', color: 'white' }}
+                                onClick={() => navigate('/tmt_register')} 
+                              >
+                                Register
+                              </Button>
+
+                            </div>
                           </div>
                           ), 
                         }}
@@ -181,6 +194,15 @@ function Dashboard() {
                       <div>AvgRate</div>
                       <div>4000</div>
                     </div>
+                    <Button
+                                variant="contained"
+                                color="primary"
+                                size="small"
+                                startIcon={<RegisterIcon />}
+                                style={{ marginLeft: '23px', padding: '2px 6px', fontSize: '12px', color: 'white' }}
+                              >
+                                Register
+                              </Button>
                   </div>
                           </div>
                           ), 
@@ -231,6 +253,15 @@ function Dashboard() {
                       <div>AvgRate</div>
                       <div>4000</div>
                     </div>
+                    <Button
+                                variant="contained"
+                                color="primary"
+                                size="small"
+                                startIcon={<RegisterIcon />}
+                                style={{ marginLeft: '23px', padding: '2px 6px', fontSize: '12px', color: 'white' }}
+                              >
+                                Register
+                              </Button>
                   </div>
                           </div>
                           ), 
@@ -281,6 +312,15 @@ function Dashboard() {
                       <div>AvgRate</div>
                       <div>4000</div>
                     </div>
+                    <Button
+                                variant="contained"
+                                color="primary"
+                                size="small"
+                                startIcon={<RegisterIcon />}
+                                style={{ marginLeft: '23px', padding: '2px 6px', fontSize: '12px', color: 'white' }}
+                              >
+                                Register
+                              </Button>
                   </div>
                           </div>
                           ), 
@@ -331,6 +371,15 @@ function Dashboard() {
                       <div>AvgRate</div>
                       <div>4000</div>
                     </div>
+                    <Button
+                                variant="contained"
+                                color="primary"
+                                size="small"
+                                startIcon={<RegisterIcon />}
+                                style={{ marginLeft: '23px', padding: '2px 6px', fontSize: '12px', color: 'white' }}
+                              >
+                                Register
+                              </Button>
                   </div>
                 </div>
               ),

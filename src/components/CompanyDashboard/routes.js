@@ -13,6 +13,7 @@ import Grn from "./layouts/grn";
 import Purchase from "./layouts/purchase";
 import Transporting from "./layouts/transporting";
 import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
+import RegisterIcon from '@mui/icons-material/AppRegistration'
 
 // @mui icons
 import Icon from "@mui/material/Icon";
@@ -20,6 +21,7 @@ import Pending from "./layouts/pending";
 import Dispatch from "./layouts/dispatch";
 import Billing from "./layouts/billing2";
 import Invoice from "./layouts/invoice";
+import TmtRegister from "./layouts/tmt_register";
 
 const routes = [
   {
@@ -133,6 +135,14 @@ const routes = [
     icon: <Icon fontSize="small">event_note</Icon>,
     route: "/invoice",
     component: <Invoice />,
+  },
+  {
+    type: "collapse",
+    name: "Tmt Register",
+    key: "tmt_register",
+    icon:  <RegisterIcon icon={faSignInAlt} />, 
+    route: "/tmt_register",
+    component: <TmtRegister />,
   },
   {
     type: "collapse",

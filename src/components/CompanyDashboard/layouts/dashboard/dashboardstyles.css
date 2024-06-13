@@ -21,13 +21,13 @@
 
 .swiper-button-next {
   right: 10px;
-  top: 20%; /* Center vertically */
+  top: 15%; /* Center vertically */
   transform: translateY(-50%);
 }
 
 .swiper-button-prev {
   left: 10px;
-  top: 20%; /* Center vertically */
+  top: 15%; /* Center vertically */
   transform: translateY(-50%);
 }
 
