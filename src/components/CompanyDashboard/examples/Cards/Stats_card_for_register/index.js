@@ -20,8 +20,21 @@ function Stats_card_for_register({ color, title, count, percentage, icon, detail
       setExpanded(!expanded);
     };
   
+    const getButtonMarginLeft = () => {
+      if (window.innerWidth <= 767) {
+        return "32vh"; // For mobile devices
+      } else {
+        return "40vh"; // For larger devices
+      }
+    };
+
     return (
-      <Card sx={{ cursor: "pointer" ,marginTop:'4vh'}}>
+      <Card sx={{ cursor: "pointer" ,marginTop:'20vh' ,transition: "all 0.3s ease",
+        marginBottom: {
+          xs: expanded ? "20px" : "10px", // Mobile view
+          md: expanded ? "25vh" : "10px" // Default larger devices
+        }, // Add more space when expanded
+        zIndex: expanded ? 10 : 1}}>
         <MDBox display="flex" justifyContent="space-between" pt={1} px={2}>
           <MDBox
             variant="gradient"
@@ -67,7 +80,7 @@ function Stats_card_for_register({ color, title, count, percentage, icon, detail
             size="small"
             style={{
               marginTop: "-25px",
-              marginLeft: "auto",
+               marginLeft: getButtonMarginLeft(),
               marginRight: "10px",
               marginBottom: "10px",
               padding: "4px",
@@ -80,16 +93,27 @@ function Stats_card_for_register({ color, title, count, percentage, icon, detail
               fontSize: "20px",
               lineHeight: "1",
               color: "white",
+
             }}
             onClick={handleExpandClick}
           >
             {expanded ? "-" : "+"}
           </Button>
           {expanded && (
-            <MDBox mt={2}>
-              <MDTypography variant="body2" color="textSecondary">
-                {details}
-              </MDTypography>
+          <MDBox
+            mt={2}
+            sx={{
+              maxHeight: "200px", // Adjust the maximum height
+              maxWidth: "350px",  // Adjust the maximum width
+              overflow: "auto",
+              padding: "10px",
+              borderRadius: "8px",
+            // Light background for better visibility
+            }}
+          >
+            <MDTypography variant="body2" color="textSecondary">
+              {details}
+            </MDTypography>
             </MDBox>
           )}
         </MDBox>

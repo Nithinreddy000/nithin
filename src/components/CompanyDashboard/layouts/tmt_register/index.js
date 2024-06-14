@@ -25,15 +25,28 @@ import { Link as ScrollLink } from 'react-scroll';
 import Button from '@mui/material/Button';
 import RegisterIcon from '@mui/icons-material/AppRegistration';
 import MDTypography from "../../components/MDTypography";
+import zIndex from "@mui/material/styles/zIndex";
 
 
 function TmtRegister() {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
-  const [clickTimeout, setClickTimeout] = useState(null);
-  const [expandTmtBars, setExpandTmtBars] = useState(false); 
-  const [expandDetails, setExpandDetails] = useState(Array(5).fill(false));
   const [expanded, setExpanded] = useState(false);
+  const [expanded2, setExpanded2] = useState(false);
+  const [expanded3, setExpanded3] = useState(false);
+  const [expanded4, setExpanded4] = useState(false);
+  const [expanded5, setExpanded5] = useState(false);
+  const [expanded6, setExpanded6] = useState(false);
+  const [expanded7, setExpanded7] = useState(false);
+  const [expanded8, setExpanded8] = useState(false);
+  const [expanded9, setExpanded9] = useState(false);
+  const [expanded10, setExpanded10] = useState(false);
+  const [expanded11, setExpanded11] = useState(false);
+  const [expanded12, setExpanded12] = useState(false);
+  const [expanded13, setExpanded13] = useState(false);
+  const [expanded14, setExpanded14] = useState(false);
+  const [expanded15, setExpanded15] = useState(false);
+  const [expanded16, setExpanded16] = useState(false);
   const [nestedExpanded, setNestedExpanded] = useState(false);
   
   const handleSearch = (query) => {
@@ -56,32 +69,9 @@ function TmtRegister() {
       <DashboardNavbar onSearch={handleSearch} />
       <MDBox py={3} >
         <h3 style={{paddingLeft: '10px',fontFamily: 'Poppins, sans-serif',paddingTop:'0%' ,marginTop:'0%'}}>Registration</h3>
-        <div className="swiper-container">
-        <Swiper
-        spaceBetween={16}
-        slidesPerView={4} // Default number of slides per view
-        breakpoints={{
-          0: {
-            slidesPerView: 1, // 1 slide per view for screens from 0 to 900px
-          },
-          768: {
-            slidesPerView: 2,  // 1 slide per view for screens up to 900px
-          },
-          1300: {
-            slidesPerView: 3, // 4 slides per view for screens larger than 1300px
-          },
-          // Add more breakpoints if needed
-        }}
       
-        modules={[Navigation, Keyboard]}
-        navigation={{ clickable: true }}
-        keyboard={{ enabled: true }}
-        loop={true} 
-        >
           {filterDivisions("Tmt Bars") && (
-  <SwiperSlide>
-    <div className="card-container">
-      <Grid item xs={12} md={6} lg={3}>
+    <div className="card-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '10vh',paddingBottom:'15vh' }}>
         <MDBox mb={1.5} style={{ cursor: "pointer" }}>
           <Stats_card_for_register
             icon="bar_chart"
@@ -122,15 +112,15 @@ function TmtRegister() {
                     </div>
                     <div style={{ marginBottom: '10px', marginTop: '-17px' }}>
                     <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>T R ISPAT & POWER</p> </b> 
-                    <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>TMT Bar 500 mts @ 40,500/EX   
-                    <ScrollLink to="details" smooth={true} duration={500} style={{marginLeft:'100px'}}>
+ <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' ,display:"flex"}}>TMT Bar 500 mts @ 40,500/EX   
+                    <ScrollLink   style={{marginLeft:'100px'}}>
                       <Button
             variant="contained"
             color="primary"
             size="small"
             style={{
-                marginTop: "10px",
-                marginLeft: "auto",
+                marginTop: "0px",
+                marginLeft: "10vh",
                 marginRight: "10px",
                 marginBottom: "5px",
                 padding: "0%",             // Adjusted padding for smaller size
@@ -142,12 +132,11 @@ function TmtRegister() {
               }}
                                           onClick={() => {
                                             setExpanded(!expanded);
-                                            handleNestedExpandClick();
                                           }}
                                         >
                                           {expanded ? '-' : '+'}
                                         </Button>
-                                      </ScrollLink></p> </b> 
+                                      </ScrollLink></p> </b>
 
                       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                       <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>24-04-2024 | OUT/APR/49</p> </b> 
@@ -182,15 +171,15 @@ function TmtRegister() {
                     </div>
                     <div style={{ marginBottom: '10px', marginTop: '-17px' }}>
                     <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>T R ISPAT & POWER</p> </b> 
-                    <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>TMT Bar 500 mts @ 40,500/EX   
-                    <ScrollLink to="details" smooth={true} duration={500} style={{marginLeft:'100px'}}>
+                    <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif',display:"flex" }}>TMT Bar 500 mts @ 40,500/EX   
+                    <ScrollLink style={{marginLeft:'100px'}}>
                       <Button
             variant="contained"
             color="primary"
             size="small"
             style={{
-                marginTop: "10px",
-                marginLeft: "auto",
+                marginTop: "0px",
+                marginLeft: "10vh",
                 marginRight: "10px",
                 marginBottom: "5px",
                 padding: "0%",             // Adjusted padding for smaller size
@@ -201,11 +190,10 @@ function TmtRegister() {
                 color: "white",
               }}
                                           onClick={() => {
-                                            setExpanded(!expanded);
-                                            handleNestedExpandClick();
+                                            setExpanded2(!expanded2);
                                           }}
                                         >
-                                          {expanded ? '-' : '+'}
+                                          {expanded2 ? '-' : '+'}
                                         </Button>
                                       </ScrollLink></p> </b> 
 
@@ -215,7 +203,7 @@ function TmtRegister() {
     
                         </p> </b> 
                       </div>
-                      {expanded && (
+                      {expanded2 && (
         <div id="details">
           {/* Add your additional details here */}
           <div className="accordion_child_body" style={{ borderTop: '1px solid rgb(204, 204, 204)', display: 'block' }}>
@@ -242,15 +230,15 @@ function TmtRegister() {
                     </div>
                     <div style={{ marginBottom: '10px', marginTop: '-17px' }}>
                     <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>T R ISPAT & POWER</p> </b> 
-                    <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>TMT Bar 500 mts @ 40,500/EX   
-                    <ScrollLink to="details" smooth={true} duration={500} style={{marginLeft:'100px'}}>
+                    <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' ,display:"flex"}}>TMT Bar 500 mts @ 40,500/EX   
+                    <ScrollLink style={{marginLeft:'100px'}}>
                       <Button
             variant="contained"
             color="primary"
             size="small"
             style={{
-                marginTop: "10px",
-                marginLeft: "auto",
+                marginTop: "0px",
+                marginLeft: "10vh",
                 marginRight: "10px",
                 marginBottom: "5px",
                 padding: "0%",             // Adjusted padding for smaller size
@@ -261,11 +249,10 @@ function TmtRegister() {
                 color: "white",
               }}
                                           onClick={() => {
-                                            setExpanded(!expanded);
-                                            handleNestedExpandClick();
+                                            setExpanded3(!expanded3);
                                           }}
                                         >
-                                          {expanded ? '-' : '+'}
+                                          {expanded3 ? '-' : '+'}
                                         </Button>
                                       </ScrollLink></p> </b> 
 
@@ -275,7 +262,7 @@ function TmtRegister() {
     
                         </p> </b> 
                       </div>
-                      {expanded && (
+                      {expanded3 && (
         <div id="details">
           {/* Add your additional details here */}
           <div className="accordion_child_body" style={{ borderTop: '1px solid rgb(204, 204, 204)', display: 'block' }}>
@@ -302,15 +289,15 @@ function TmtRegister() {
                     </div>
                     <div style={{ marginBottom: '10px', marginTop: '-17px' }}>
                     <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>T R ISPAT & POWER</p> </b> 
-                    <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>TMT Bar 500 mts @ 40,500/EX   
-                    <ScrollLink to="details" smooth={true} duration={500} style={{marginLeft:'100px'}}>
+                    <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' ,display:"flex"}}>TMT Bar 500 mts @ 40,500/EX   
+                    <ScrollLink style={{marginLeft:'100px'}}>
                       <Button
             variant="contained"
             color="primary"
             size="small"
             style={{
-                marginTop: "10px",
-                marginLeft: "auto",
+                marginTop: "0px",
+                marginLeft: "10vh",
                 marginRight: "10px",
                 marginBottom: "5px",
                 padding: "0%",             // Adjusted padding for smaller size
@@ -321,11 +308,11 @@ function TmtRegister() {
                 color: "white",
               }}
                                           onClick={() => {
-                                            setExpanded(!expanded);
+                                            setExpanded4(!expanded4);
                                             handleNestedExpandClick();
                                           }}
                                         >
-                                          {expanded ? '-' : '+'}
+                                          {expanded4 ? '-' : '+'}
                                         </Button>
                                       </ScrollLink></p> </b> 
 
@@ -335,7 +322,7 @@ function TmtRegister() {
     
                         </p> </b> 
                       </div>
-                      {expanded && (
+                      {expanded4 && (
         <div id="details">
           {/* Add your additional details here */}
           <div className="accordion_child_body" style={{ borderTop: '1px solid rgb(204, 204, 204)', display: 'block' }}>
@@ -359,17 +346,13 @@ function TmtRegister() {
             )}
           />
         </MDBox>
-      </Grid>
     </div>
-  </SwiperSlide>
 )}
 
 
 {filterDivisions("Billets") && (
-  <SwiperSlide>
-    <div className="card-container">
-      <Grid item xs={12} md={6} lg={3}>
-        <MDBox mb={1.5} style={{ cursor: "pointer" }}>
+    <div className="card-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '10vh' ,paddingBottom:'15vh', }}>
+        <MDBox mb={1.5} style={{ cursor: "pointer"}}>
           <Stats_card_for_register
             icon="layers"
             title={<h3 style={{ fontSize: '24px', fontFamily: 'Poppins, sans-serif' }}>Billets</h3>}
@@ -409,15 +392,15 @@ function TmtRegister() {
                       </div>
                       <div style={{ marginBottom: '10px', marginTop: '-17px' }}>
                       <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>T R ISPAT & POWER</p> </b> 
-                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>TMT Bar 500 mts @ 40,500/EX   
-                      <ScrollLink to="details" smooth={true} duration={500} style={{marginLeft:'100px'}}>
+                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' ,display:"flex"}}>TMT Bar 500 mts @ 40,500/EX   
+                      <ScrollLink  style={{marginLeft:'100px'}}>
                         <Button
               variant="contained"
               color="primary"
               size="small"
               style={{
-                  marginTop: "10px",
-                  marginLeft: "auto",
+                  marginTop: "0px",
+                  marginLeft: "10vh",
                   marginRight: "10px",
                   marginBottom: "5px",
                   padding: "0%",             // Adjusted padding for smaller size
@@ -428,11 +411,11 @@ function TmtRegister() {
                   color: "white",
                 }}
                                             onClick={() => {
-                                              setExpanded(!expanded);
+                                              setExpanded5(!expanded5);
                                               handleNestedExpandClick();
                                             }}
                                           >
-                                            {expanded ? '-' : '+'}
+                                            {expanded5 ? '-' : '+'}
                                           </Button>
                                         </ScrollLink></p> </b> 
   
@@ -442,7 +425,7 @@ function TmtRegister() {
       
                           </p> </b> 
                         </div>
-                        {expanded && (
+                        {expanded5 && (
           <div id="details">
             {/* Add your additional details here */}
             <div className="accordion_child_body" style={{ borderTop: '1px solid rgb(204, 204, 204)', display: 'block' }}>
@@ -469,15 +452,15 @@ function TmtRegister() {
                       </div>
                       <div style={{ marginBottom: '10px', marginTop: '-17px' }}>
                       <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>T R ISPAT & POWER</p> </b> 
-                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>TMT Bar 500 mts @ 40,500/EX   
-                      <ScrollLink to="details" smooth={true} duration={500} style={{marginLeft:'100px'}}>
+                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' ,display:"flex"}}>TMT Bar 500 mts @ 40,500/EX   
+                      <ScrollLink  style={{marginLeft:'100px'}}>
                         <Button
               variant="contained"
               color="primary"
               size="small"
               style={{
-                  marginTop: "10px",
-                  marginLeft: "auto",
+                  marginTop: "0px",
+                  marginLeft: "10vh",
                   marginRight: "10px",
                   marginBottom: "5px",
                   padding: "0%",             // Adjusted padding for smaller size
@@ -488,11 +471,11 @@ function TmtRegister() {
                   color: "white",
                 }}
                                             onClick={() => {
-                                              setExpanded(!expanded);
+                                              setExpanded6(!expanded6);
                                               handleNestedExpandClick();
                                             }}
                                           >
-                                            {expanded ? '-' : '+'}
+                                            {expanded6 ? '-' : '+'}
                                           </Button>
                                         </ScrollLink></p> </b> 
   
@@ -502,7 +485,7 @@ function TmtRegister() {
       
                           </p> </b> 
                         </div>
-                        {expanded && (
+                        {expanded6 && (
           <div id="details">
             {/* Add your additional details here */}
             <div className="accordion_child_body" style={{ borderTop: '1px solid rgb(204, 204, 204)', display: 'block' }}>
@@ -529,15 +512,15 @@ function TmtRegister() {
                       </div>
                       <div style={{ marginBottom: '10px', marginTop: '-17px' }}>
                       <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>T R ISPAT & POWER</p> </b> 
-                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>TMT Bar 500 mts @ 40,500/EX   
-                      <ScrollLink to="details" smooth={true} duration={500} style={{marginLeft:'100px'}}>
+                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' ,display:"flex"}}>TMT Bar 500 mts @ 40,500/EX   
+                      <ScrollLink  style={{marginLeft:'100px'}}>
                         <Button
               variant="contained"
               color="primary"
               size="small"
               style={{
-                  marginTop: "10px",
-                  marginLeft: "auto",
+                  marginTop: "0px",
+                  marginLeft: "10vh",
                   marginRight: "10px",
                   marginBottom: "5px",
                   padding: "0%",             // Adjusted padding for smaller size
@@ -548,11 +531,11 @@ function TmtRegister() {
                   color: "white",
                 }}
                                             onClick={() => {
-                                              setExpanded(!expanded);
+                                              setExpanded7(!expanded7);
                                               handleNestedExpandClick();
                                             }}
                                           >
-                                            {expanded ? '-' : '+'}
+                                            {expanded7 ? '-' : '+'}
                                           </Button>
                                         </ScrollLink></p> </b> 
   
@@ -562,7 +545,7 @@ function TmtRegister() {
       
                           </p> </b> 
                         </div>
-                        {expanded && (
+                        {expanded7 && (
           <div id="details">
             {/* Add your additional details here */}
             <div className="accordion_child_body" style={{ borderTop: '1px solid rgb(204, 204, 204)', display: 'block' }}>
@@ -589,15 +572,15 @@ function TmtRegister() {
                       </div>
                       <div style={{ marginBottom: '10px', marginTop: '-17px' }}>
                       <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>T R ISPAT & POWER</p> </b> 
-                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>TMT Bar 500 mts @ 40,500/EX   
-                      <ScrollLink to="details" smooth={true} duration={500} style={{marginLeft:'100px'}}>
+                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif',display:"flex" }}>TMT Bar 500 mts @ 40,500/EX   
+                      <ScrollLink  style={{marginLeft:'100px'}}>
                         <Button
               variant="contained"
               color="primary"
               size="small"
               style={{
-                  marginTop: "10px",
-                  marginLeft: "auto",
+                  marginTop: "0px",
+                  marginLeft: "10vh",
                   marginRight: "10px",
                   marginBottom: "5px",
                   padding: "0%",             // Adjusted padding for smaller size
@@ -608,11 +591,11 @@ function TmtRegister() {
                   color: "white",
                 }}
                                             onClick={() => {
-                                              setExpanded(!expanded);
+                                              setExpanded8(!expanded8);
                                               handleNestedExpandClick();
                                             }}
                                           >
-                                            {expanded ? '-' : '+'}
+                                            {expanded8 ? '-' : '+'}
                                           </Button>
                                         </ScrollLink></p> </b> 
   
@@ -622,7 +605,7 @@ function TmtRegister() {
       
                           </p> </b> 
                         </div>
-                        {expanded && (
+                        {expanded8 && (
           <div id="details">
             {/* Add your additional details here */}
             <div className="accordion_child_body" style={{ borderTop: '1px solid rgb(204, 204, 204)', display: 'block' }}>
@@ -646,14 +629,10 @@ function TmtRegister() {
               )}
             />
           </MDBox>
-        </Grid>
       </div>
-    </SwiperSlide>
   )}
              {filterDivisions("Structures") && (
-  <SwiperSlide>
-    <div className="card-container">
-      <Grid item xs={12} md={6} lg={3}>
+    <div className="card-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '10vh' ,paddingBottom:'15vh'}}>
         <MDBox mb={1.5} style={{ cursor: "pointer" }}>
           <Stats_card_for_register
             icon="building"
@@ -694,15 +673,15 @@ function TmtRegister() {
                       </div>
                       <div style={{ marginBottom: '10px', marginTop: '-17px' }}>
                       <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>T R ISPAT & POWER</p> </b> 
-                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>TMT Bar 500 mts @ 40,500/EX   
-                      <ScrollLink to="details" smooth={true} duration={500} style={{marginLeft:'100px'}}>
+                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' ,display:"flex"}}>TMT Bar 500 mts @ 40,500/EX   
+                      <ScrollLink  style={{marginLeft:'100px'}}>
                         <Button
               variant="contained"
               color="primary"
               size="small"
               style={{
-                  marginTop: "10px",
-                  marginLeft: "auto",
+                  marginTop: "0px",
+                  marginLeft: "10vh",
                   marginRight: "10px",
                   marginBottom: "5px",
                   padding: "0%",             // Adjusted padding for smaller size
@@ -713,11 +692,11 @@ function TmtRegister() {
                   color: "white",
                 }}
                                             onClick={() => {
-                                              setExpanded(!expanded);
+                                              setExpanded9(!expanded9);
                                               handleNestedExpandClick();
                                             }}
                                           >
-                                            {expanded ? '-' : '+'}
+                                            {expanded9 ? '-' : '+'}
                                           </Button>
                                         </ScrollLink></p> </b> 
   
@@ -727,7 +706,7 @@ function TmtRegister() {
       
                           </p> </b> 
                         </div>
-                        {expanded && (
+                        {expanded9 && (
           <div id="details">
             {/* Add your additional details here */}
             <div className="accordion_child_body" style={{ borderTop: '1px solid rgb(204, 204, 204)', display: 'block' }}>
@@ -754,15 +733,15 @@ function TmtRegister() {
                       </div>
                       <div style={{ marginBottom: '10px', marginTop: '-17px' }}>
                       <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>T R ISPAT & POWER</p> </b> 
-                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>TMT Bar 500 mts @ 40,500/EX   
-                      <ScrollLink to="details" smooth={true} duration={500} style={{marginLeft:'100px'}}>
+                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' ,display:"flex"}}>TMT Bar 500 mts @ 40,500/EX   
+                      <ScrollLink style={{marginLeft:'100px'}}>
                         <Button
               variant="contained"
               color="primary"
               size="small"
               style={{
-                  marginTop: "10px",
-                  marginLeft: "auto",
+                  marginTop: "0px",
+                  marginLeft: "10vh",
                   marginRight: "10px",
                   marginBottom: "5px",
                   padding: "0%",             // Adjusted padding for smaller size
@@ -773,11 +752,11 @@ function TmtRegister() {
                   color: "white",
                 }}
                                             onClick={() => {
-                                              setExpanded(!expanded);
+                                              setExpanded10(!expanded10);
                                               handleNestedExpandClick();
                                             }}
                                           >
-                                            {expanded ? '-' : '+'}
+                                            {expanded10 ? '-' : '+'}
                                           </Button>
                                         </ScrollLink></p> </b> 
   
@@ -787,7 +766,7 @@ function TmtRegister() {
       
                           </p> </b> 
                         </div>
-                        {expanded && (
+                        {expanded10 && (
           <div id="details">
             {/* Add your additional details here */}
             <div className="accordion_child_body" style={{ borderTop: '1px solid rgb(204, 204, 204)', display: 'block' }}>
@@ -814,15 +793,15 @@ function TmtRegister() {
                       </div>
                       <div style={{ marginBottom: '10px', marginTop: '-17px' }}>
                       <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>T R ISPAT & POWER</p> </b> 
-                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>TMT Bar 500 mts @ 40,500/EX   
-                      <ScrollLink to="details" smooth={true} duration={500} style={{marginLeft:'100px'}}>
+                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif',display:"flex" }}>TMT Bar 500 mts @ 40,500/EX   
+                      <ScrollLink  style={{marginLeft:'100px'}}>
                         <Button
               variant="contained"
               color="primary"
               size="small"
               style={{
-                  marginTop: "10px",
-                  marginLeft: "auto",
+                  marginTop: "0px",
+                  marginLeft: "10vh",
                   marginRight: "10px",
                   marginBottom: "5px",
                   padding: "0%",             // Adjusted padding for smaller size
@@ -833,11 +812,11 @@ function TmtRegister() {
                   color: "white",
                 }}
                                             onClick={() => {
-                                              setExpanded(!expanded);
+                                              setExpanded11(!expanded11);
                                               handleNestedExpandClick();
                                             }}
                                           >
-                                            {expanded ? '-' : '+'}
+                                            {expanded11 ? '-' : '+'}
                                           </Button>
                                         </ScrollLink></p> </b> 
   
@@ -847,7 +826,7 @@ function TmtRegister() {
       
                           </p> </b> 
                         </div>
-                        {expanded && (
+                        {expanded11 && (
           <div id="details">
             {/* Add your additional details here */}
             <div className="accordion_child_body" style={{ borderTop: '1px solid rgb(204, 204, 204)', display: 'block' }}>
@@ -874,15 +853,15 @@ function TmtRegister() {
                       </div>
                       <div style={{ marginBottom: '10px', marginTop: '-17px' }}>
                       <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>T R ISPAT & POWER</p> </b> 
-                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>TMT Bar 500 mts @ 40,500/EX   
-                      <ScrollLink to="details" smooth={true} duration={500} style={{marginLeft:'100px'}}>
+                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' ,display:"flex"}}>TMT Bar 500 mts @ 40,500/EX   
+                      <ScrollLink  style={{marginLeft:'100px'}}>
                         <Button
               variant="contained"
               color="primary"
               size="small"
               style={{
-                  marginTop: "10px",
-                  marginLeft: "auto",
+                  marginTop: "0px",
+                  marginLeft: "10vh",
                   marginRight: "10px",
                   marginBottom: "5px",
                   padding: "0%",             // Adjusted padding for smaller size
@@ -893,11 +872,11 @@ function TmtRegister() {
                   color: "white",
                 }}
                                             onClick={() => {
-                                              setExpanded(!expanded);
+                                              setExpanded12(!expanded12);
                                               handleNestedExpandClick();
                                             }}
                                           >
-                                            {expanded ? '-' : '+'}
+                                            {expanded12 ? '-' : '+'}
                                           </Button>
                                         </ScrollLink></p> </b> 
   
@@ -907,7 +886,7 @@ function TmtRegister() {
       
                           </p> </b> 
                         </div>
-                        {expanded && (
+                        {expanded12 && (
           <div id="details">
             {/* Add your additional details here */}
             <div className="accordion_child_body" style={{ borderTop: '1px solid rgb(204, 204, 204)', display: 'block' }}>
@@ -931,15 +910,12 @@ function TmtRegister() {
               )}
             />
           </MDBox>
-        </Grid>
       </div>
-    </SwiperSlide>
   )}
   
             {filterDivisions("Pipes") && (
-  <SwiperSlide>
-    <div className="card-container">
-      <Grid item xs={12} md={6} lg={3}>
+    <div className="card-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '10vh',paddingBottom:'15vh' }}>
+
         <MDBox mb={1.5} style={{ cursor: "pointer" }}>
           <Stats_card_for_register
             icon="plumbing"
@@ -980,15 +956,15 @@ function TmtRegister() {
                       </div>
                       <div style={{ marginBottom: '10px', marginTop: '-17px' }}>
                       <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>T R ISPAT & POWER</p> </b> 
-                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>TMT Bar 500 mts @ 40,500/EX   
-                      <ScrollLink to="details" smooth={true} duration={500} style={{marginLeft:'100px'}}>
+                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' ,display:"flex"}}>TMT Bar 500 mts @ 40,500/EX   
+                      <ScrollLink  style={{marginLeft:'100px'}}>
                         <Button
               variant="contained"
               color="primary"
               size="small"
               style={{
-                  marginTop: "10px",
-                  marginLeft: "auto",
+                  marginTop: "0px",
+                  marginLeft: "10vh",
                   marginRight: "10px",
                   marginBottom: "5px",
                   padding: "0%",             // Adjusted padding for smaller size
@@ -999,11 +975,11 @@ function TmtRegister() {
                   color: "white",
                 }}
                                             onClick={() => {
-                                              setExpanded(!expanded);
+                                              setExpanded13(!expanded13);
                                               handleNestedExpandClick();
                                             }}
                                           >
-                                            {expanded ? '-' : '+'}
+                                            {expanded13 ? '-' : '+'}
                                           </Button>
                                         </ScrollLink></p> </b> 
   
@@ -1013,7 +989,7 @@ function TmtRegister() {
       
                           </p> </b> 
                         </div>
-                        {expanded && (
+                        {expanded13 && (
           <div id="details">
             {/* Add your additional details here */}
             <div className="accordion_child_body" style={{ borderTop: '1px solid rgb(204, 204, 204)', display: 'block' }}>
@@ -1040,15 +1016,15 @@ function TmtRegister() {
                       </div>
                       <div style={{ marginBottom: '10px', marginTop: '-17px' }}>
                       <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>T R ISPAT & POWER</p> </b> 
-                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>TMT Bar 500 mts @ 40,500/EX   
-                      <ScrollLink to="details" smooth={true} duration={500} style={{marginLeft:'100px'}}>
+<b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif',display:"flex"}}>TMT Bar 500 mts @ 40,500/EX   
+                      <ScrollLink  >
                         <Button
               variant="contained"
               color="primary"
               size="small"
               style={{
-                  marginTop: "10px",
-                  marginLeft: "auto",
+                  marginTop: "0px",
+                  marginLeft: "10vh",
                   marginRight: "10px",
                   marginBottom: "5px",
                   padding: "0%",             // Adjusted padding for smaller size
@@ -1059,11 +1035,10 @@ function TmtRegister() {
                   color: "white",
                 }}
                                             onClick={() => {
-                                              setExpanded(!expanded);
-                                              handleNestedExpandClick();
+                                              setExpanded14(!expanded14);
                                             }}
                                           >
-                                            {expanded ? '-' : '+'}
+                                            {expanded14 ? '-' : '+'}
                                           </Button>
                                         </ScrollLink></p> </b> 
   
@@ -1073,7 +1048,7 @@ function TmtRegister() {
       
                           </p> </b> 
                         </div>
-                        {expanded && (
+                        {expanded14 && (
           <div id="details">
             {/* Add your additional details here */}
             <div className="accordion_child_body" style={{ borderTop: '1px solid rgb(204, 204, 204)', display: 'block' }}>
@@ -1100,15 +1075,15 @@ function TmtRegister() {
                       </div>
                       <div style={{ marginBottom: '10px', marginTop: '-17px' }}>
                       <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>T R ISPAT & POWER</p> </b> 
-                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>TMT Bar 500 mts @ 40,500/EX   
-                      <ScrollLink to="details" smooth={true} duration={500} style={{marginLeft:'100px'}}>
+                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' ,display:"flex"}}>TMT Bar 500 mts @ 40,500/EX   
+                      <ScrollLink  style={{marginLeft:'100px'}}>
                         <Button
               variant="contained"
               color="primary"
               size="small"
               style={{
-                  marginTop: "10px",
-                  marginLeft: "auto",
+                  marginTop: "0px",
+                  marginLeft: "10vh",
                   marginRight: "10px",
                   marginBottom: "5px",
                   padding: "0%",             // Adjusted padding for smaller size
@@ -1119,11 +1094,11 @@ function TmtRegister() {
                   color: "white",
                 }}
                                             onClick={() => {
-                                              setExpanded(!expanded);
+                                              setExpanded15(!expanded15);
                                               handleNestedExpandClick();
                                             }}
                                           >
-                                            {expanded ? '-' : '+'}
+                                            {expanded15 ? '-' : '+'}
                                           </Button>
                                         </ScrollLink></p> </b> 
   
@@ -1133,7 +1108,7 @@ function TmtRegister() {
       
                           </p> </b> 
                         </div>
-                        {expanded && (
+                        {expanded15 && (
           <div id="details">
             {/* Add your additional details here */}
             <div className="accordion_child_body" style={{ borderTop: '1px solid rgb(204, 204, 204)', display: 'block' }}>
@@ -1160,15 +1135,15 @@ function TmtRegister() {
                       </div>
                       <div style={{ marginBottom: '10px', marginTop: '-17px' }}>
                       <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>T R ISPAT & POWER</p> </b> 
-                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>TMT Bar 500 mts @ 40,500/EX   
-                      <ScrollLink to="details" smooth={true} duration={500} style={{marginLeft:'100px'}}>
+                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif',display:"flex" }}>TMT Bar 500 mts @ 40,500/EX   
+                      <ScrollLink  style={{marginLeft:'100px'}}>
                         <Button
               variant="contained"
               color="primary"
               size="small"
               style={{
-                  marginTop: "10px",
-                  marginLeft: "auto",
+                  marginTop: "0px",
+                  marginLeft: "10vh",
                   marginRight: "10px",
                   marginBottom: "5px",
                   padding: "0%",             // Adjusted padding for smaller size
@@ -1179,11 +1154,11 @@ function TmtRegister() {
                   color: "white",
                 }}
                                             onClick={() => {
-                                              setExpanded(!expanded);
+                                              setExpanded16(!expanded16);
                                               handleNestedExpandClick();
                                             }}
                                           >
-                                            {expanded ? '-' : '+'}
+                                            {expanded16 ? '-' : '+'}
                                           </Button>
                                         </ScrollLink></p> </b> 
   
@@ -1193,7 +1168,7 @@ function TmtRegister() {
       
                           </p> </b> 
                         </div>
-                        {expanded && (
+                        {expanded16 && (
           <div id="details">
             {/* Add your additional details here */}
             <div className="accordion_child_body" style={{ borderTop: '1px solid rgb(204, 204, 204)', display: 'block' }}>
@@ -1217,15 +1192,11 @@ function TmtRegister() {
               )}
             />
           </MDBox>
-        </Grid>
       </div>
-    </SwiperSlide>
   )}
   
         
 
-            </Swiper>
-        </div>
         <MDBox mt={4.5}>
           <Grid container spacing={3}>
           </Grid>
