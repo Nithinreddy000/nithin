@@ -31,6 +31,7 @@ import zIndex from "@mui/material/styles/zIndex";
 function TmtRegister() {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
+  const [expandedDetails, setExpandedDetails] = useState([]);
   const [expanded, setExpanded] = useState(false);
   const [expanded2, setExpanded2] = useState(false);
   const [expanded3, setExpanded3] = useState(false);
@@ -48,6 +49,7 @@ function TmtRegister() {
   const [expanded15, setExpanded15] = useState(false);
   const [expanded16, setExpanded16] = useState(false);
   const [nestedExpanded, setNestedExpanded] = useState(false);
+  const [expandedStates, setExpandedStates] = useState({});
   
   const handleSearch = (query) => {
     // Debounce the state update with a delay of 300 milliseconds
@@ -64,18 +66,104 @@ function TmtRegister() {
     setNestedExpanded(!nestedExpanded);
   };
 
-  return (
-    <DashboardLayout>
-      <DashboardNavbar onSearch={handleSearch} />
-      <MDBox py={3} >
-        <h3 style={{paddingLeft: '10px',fontFamily: 'Poppins, sans-serif',paddingTop:'0%' ,marginTop:'0%'}}>Registration</h3>
-      
-          {filterDivisions("Tmt Bars") && (
-    <div className="card-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '10vh',paddingBottom:'15vh' }}>
+  const divisions = [
+    {
+      name: "TMT Bars",
+      members: [
+        { name: "SANJAY K.P", company: "T R ISPAT & POWER1", product: "TMT Bar 500 mts @ 40,500/EX1", orderDate: "24-04-2024 | OUT/APR/491", quantity: "390 mts | 15.25 lakhs1"  },
+        { name: "JAIDEV S", company: "T R ISPAT & POWER", product: "TMT Bar 500 mts @ 40,500/EX", orderDate: "24-04-2024 | OUT/APR/49", quantity: "390 mts | 15.25 lakhs" },
+        { name: "ARUN P.S", company: "T R ISPAT & POWER", product: "TMT Bar 500 mts @ 40,500/EX", orderDate: "24-04-2024 | OUT/APR/49", quantity: "390 mts | 15.25 lakhs"},
+        { name: "KAPPOR'S", company: "T R ISPAT & POWER", product: "TMT Bar 500 mts @ 40,500/EX", orderDate: "24-04-2024 | OUT/APR/49", quantity: "390 mts | 15.25 lakhs"},
+      ],
+      expandedState: false,
+    },
+    {
+      name: "Billets",
+      members: [
+        { name: "SANJAY K.P", company: "T R ISPAT & POWER1", product: "TMT Bar 500 mts @ 40,500/EX1", orderDate: "24-04-2024 | OUT/APR/491", quantity: "390 mts | 15.25 lakhs1"  },
+        { name: "JAIDEV S", company: "T R ISPAT & POWER", product: "TMT Bar 500 mts @ 40,500/EX", orderDate: "24-04-2024 | OUT/APR/49", quantity: "390 mts | 15.25 lakhs" },
+        { name: "ARUN P.S", company: "T R ISPAT & POWER", product: "TMT Bar 500 mts @ 40,500/EX", orderDate: "24-04-2024 | OUT/APR/49", quantity: "390 mts | 15.25 lakhs"},
+        { name: "KAPPOR'S", company: "T R ISPAT & POWER", product: "TMT Bar 500 mts @ 40,500/EX", orderDate: "24-04-2024 | OUT/APR/49", quantity: "390 mts | 15.25 lakhs"},
+      ],
+      expandedState: false,
+    },
+    {
+      name: "Structures",
+      members: [
+        { name: "SANJAY K.P", company: "T R ISPAT & POWER1", product: "TMT Bar 500 mts @ 40,500/EX1", orderDate: "24-04-2024 | OUT/APR/491", quantity: "390 mts | 15.25 lakhs1"  },
+        { name: "JAIDEV S", company: "T R ISPAT & POWER", product: "TMT Bar 500 mts @ 40,500/EX", orderDate: "24-04-2024 | OUT/APR/49", quantity: "390 mts | 15.25 lakhs" },
+        { name: "ARUN P.S", company: "T R ISPAT & POWER", product: "TMT Bar 500 mts @ 40,500/EX", orderDate: "24-04-2024 | OUT/APR/49", quantity: "390 mts | 15.25 lakhs"},
+        { name: "KAPPOR'S", company: "T R ISPAT & POWER", product: "TMT Bar 500 mts @ 40,500/EX", orderDate: "24-04-2024 | OUT/APR/49", quantity: "390 mts | 15.25 lakhs"},
+      ],
+      expandedState: false,
+    },
+    {
+      name: "Pipes",
+      members: [
+        { name: "SANJAY K.P", company: "T R ISPAT & POWER1", product: "TMT Bar 500 mts @ 40,500/EX1", orderDate: "24-04-2024 | OUT/APR/491", quantity: "390 mts | 15.25 lakhs1"  },
+        { name: "JAIDEV S", company: "T R ISPAT & POWER", product: "TMT Bar 500 mts @ 40,500/EX", orderDate: "24-04-2024 | OUT/APR/49", quantity: "390 mts | 15.25 lakhs" },
+        { name: "ARUN P.S", company: "T R ISPAT & POWER", product: "TMT Bar 500 mts @ 40,500/EX", orderDate: "24-04-2024 | OUT/APR/49", quantity: "390 mts | 15.25 lakhs"},
+        { name: "KAPPOR'S", company: "T R ISPAT & POWER", product: "TMT Bar 500 mts @ 40,500/EX", orderDate: "24-04-2024 | OUT/APR/49", quantity: "390 mts | 15.25 lakhs"},
+      ],
+      expandedState: false,
+    },
+    
+    
+    
+    // Other divisions...
+  ];
+
+  const handleSearchChange = (event) => {
+    const { value } = event.target;
+    setSearchQuery(value || ""); // Ensure empty string if value is falsy
+  };
+  
+
+  const filterDivisionsAndMembers = (member) => {
+    // Normalize the search query
+    const normalizedSearchQuery = searchQuery? searchQuery.toLowerCase().trim() : "";
+  
+    // Correctly access the properties of the member object
+    return (
+      member.toLowerCase().includes(normalizedSearchQuery)
+    );
+  };
+  
+  
+
+  const filterDivisions2 = (division) => {
+    // Normalize the search query
+    const normalizedSearchQuery = searchQuery.toLowerCase().trim();
+  
+    // Check if any member detail includes the search query
+    return division.members.some(member =>
+      member.name.toLowerCase().includes(normalizedSearchQuery) ||
+      member.company.toLowerCase().includes(normalizedSearchQuery) ||
+      member.product.toLowerCase().includes(normalizedSearchQuery) ||
+      member.orderDate.toLowerCase().includes(normalizedSearchQuery) ||
+      member.quantity.toLowerCase().includes(normalizedSearchQuery)
+    );
+  };
+  
+  const handleMemberClick = (name) => {
+    setExpandedStates(prevState => ({
+     ...prevState,
+      [name]:!prevState[name]
+    }));
+  };
+
+return(
+  <DashboardLayout>
+  <DashboardNavbar onSearch={handleSearch} />
+  <MDBox py={3}>
+    <h3 style={{ paddingLeft: '10px', fontFamily: 'Poppins, sans-serif', paddingTop: '0%', marginTop: '0%' }}>Registration</h3>
+
+    {divisions.filter(filterDivisions2).map((division, divisionIndex) => (
+  <div key={divisionIndex} className="card-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '10vh', paddingBottom: '15vh' }}>
         <MDBox mb={1.5} style={{ cursor: "pointer" }}>
           <Stats_card_for_register
             icon="bar_chart"
-            title={<h3 style={{ fontSize: '24px', fontFamily: 'Poppins, sans-serif' }}>Tmt Bars</h3>}
+            title={<h3 style={{ fontSize: '24px', fontFamily: 'Poppins, sans-serif' }}>{division.name}</h3>}
             percentage={{
               amount: (
                 <div style={{ fontFamily: 'Poppins, sans-serif' }}>
@@ -100,1103 +188,77 @@ function TmtRegister() {
                 </div>
               ),
             }}
-            details={(
+            details={
               <>
-              <div style={{ maxHeight: '300px', overflowY: 'auto' ,boxShadow: '0px 4px 16px rgba(0, 0, 0, 0.1), 0px -4px 16px rgba(0, 0, 0, 0.1)',}}>
-                {/* Additional details with different backgrounds and shadows */}
-                <div style={{ backgroundColor: 'white', padding: '10px', fontSize: '10px',  boxShadow: '0px 4px 16px rgba(0, 0, 0, 0.1), 0px -4px 16px rgba(0, 0, 0, 0.1)', marginBottom: '10px' ,borderRadius:'15px'}}>
-                  <MDTypography variant="body2" color="textSecondary">
-                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
-                      <b><a href="salesOrderDetails.Html" style={{ fontFamily: 'Poppins, sans-serif' }}>SANJAY K.P</a></b>
-                     <b> <div className="badge bg-secondary mb-4">Status</div> </b> 
-                    </div>
-                    <div style={{ marginBottom: '10px', marginTop: '-17px' }}>
-                    <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>T R ISPAT & POWER</p> </b> 
- <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' ,display:"flex"}}>TMT Bar 500 mts @ 40,500/EX   
-                    <ScrollLink   style={{marginLeft:'100px'}}>
-                      <Button
-            variant="contained"
-            color="primary"
-            size="small"
-            style={{
-                marginTop: "0px",
-                marginLeft: "10vh",
-                marginRight: "10px",
-                marginBottom: "5px",
-                padding: "0%",             // Adjusted padding for smaller size
-                minWidth: "30px",           // Adjusted minWidth to fit content
-                height: "10px",             // Adjusted height to fit content
-                borderRadius: "50%",        // Adjusted borderRadius for a rounded shape
-                fontSize: "18px",           // Adjusted fontSize for a mini size          // Adjusted lineHeight to default
-                color: "white",
-              }}
-                                          onClick={() => {
-                                            setExpanded(!expanded);
-                                          }}
-                                        >
-                                          {expanded ? '-' : '+'}
-                                        </Button>
-                                      </ScrollLink></p> </b>
-
-                      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>24-04-2024 | OUT/APR/49</p> </b> 
-                      <b>  <p style={{ marginBottom: '0', color: 'red', fontWeight: 'bold', fontSize: '12px' }}>390 mts | 15.25 lakhs  
-    
-                        </p> </b> 
-                      </div>
-                      {expanded && (
-        <div id="details">
-          {/* Add your additional details here */}
-          <div className="accordion_child_body" style={{ borderTop: '1px solid rgb(204, 204, 204)', display: 'block' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingLeft: '7px', paddingRight: '7px' ,paddingTop:'5px'}}>
-        <p style={{ margin: '0', fontSize:'12px' ,fontFamily: 'Poppins, sans-serif' }}><b>TMT Bars</b></p>
-        <p style={{ margin: '0',fontSize:'12px',fontFamily: 'Poppins, sans-serif'  }}><b>500 mts</b></p>
-        <p style={{ margin: '0' ,fontSize:'12px',fontFamily: 'Poppins, sans-serif' }}><b>40,500/Ex</b></p>
-      </div>
-      <p style={{ display: 'inline-block', padding: '5px 7px', marginBottom: '-4px' ,fontSize:'12px',fontFamily: 'Poppins, sans-serif' }}>
-        <b>Description</b>
-      </p>
-    </div>
-        </div>
-      )}
-                    </div>
-                  </MDTypography>
+              {division.members.filter(member => 
+              member.name.toLowerCase().includes(searchQuery) ||
+              member.company.toLowerCase().includes(searchQuery) ||
+              member.product.toLowerCase().includes(searchQuery) ||
+              member.orderDate.toLowerCase().includes(searchQuery) ||
+              member.quantity.toLowerCase().includes(searchQuery)
+            ).map((member, memberIndex) => (
+              <div key={memberIndex} className="member-card" style={{ maxHeight: '300px', overflowY: 'auto', boxShadow: '0px 4px 16px rgba(0, 0, 0, 0.1), 0px -4px 16px rgba(0, 0, 0, 0.1)', }}>
+                    <div style={{ backgroundColor: 'white', padding: '10px', fontSize: '10px', boxShadow: '0px 4px 16px rgba(0, 0, 0, 0.1), 0px -4px 16px rgba(0, 0, 0, 0.1)', marginBottom: '10px', borderRadius: '15px' }}>
+                      <MDTypography variant="body2" color="textSecondary">
+                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
+                          <b><a href="salesOrderDetails.Html" style={{ fontFamily: 'Poppins, sans-serif' }}>{member.name}</a></b>
+                          <b><div className="badge bg-secondary mb-4">Status</div></b>
+                        </div>
+                        <div style={{ marginBottom: '10px', marginTop: '-17px' }}>
+                          <b><p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>{member.company}</p></b>
+                          <b><p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif', display: "flex" }}>{member.product}
+                          <ScrollLink style={{ marginLeft: '100px' }}>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      size="small"
+                      style={{
+                        marginTop: "0px",
+                        marginLeft: "10vh",
+                        marginRight: "10px",
+                        marginBottom: "5px",
+                        padding: "0%",
+                        minWidth: "30px",
+                        height: "10px",
+                        borderRadius: "50%",
+                        fontSize: "18px",
+                        color: "white",
+                      }}
+                      onClick={() => handleMemberClick(member.name)}
+                    >
+                      {expandedStates[member.name]? '-' : '+'}
+                    </Button>
+                  </ScrollLink></p></b>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <b><p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>{member.orderDate}</p></b>
+                  <b><p style={{ marginBottom: '0', color: 'red', fontWeight: 'bold', fontSize: '12px' }}>{member.quantity}</p></b>
                 </div>
-
-                <div style={{ backgroundColor: 'white', padding: '10px', fontSize: '10px', boxShadow: '0px 4px 16px rgba(0, 0, 0, 0.1), 0px -4px 16px rgba(0, 0, 0, 0.1)', marginBottom: '10px' ,borderRadius:'15px'}}>
-                  <MDTypography variant="body2" color="textSecondary">
-                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
-                      <b><a href="salesOrderDetails.Html" style={{ fontFamily: 'Poppins, sans-serif' }}>JAIDEV S</a></b>
-                      <b> <div className="badge bg-secondary mb-4">Status</div> </b> 
+                {expandedStates[member.name] && (
+                  <div id="details">
+                              <div className="accordion_child_body" style={{ borderTop: '1px solid rgb(204, 204, 204)', display: 'block' }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingLeft: '7px', paddingRight: '7px', paddingTop: '5px' }}>
+                                  <p style={{ margin: '0', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}><b>Tmt Bars</b></p>
+                                  <p style={{ margin: '0', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}><b>500 mts</b></p>
+                                  <p style={{ margin: '0', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}><b>40,500/Ex</b></p>
+                                </div>
+                                <p style={{ display: 'inline-block', padding: '5px 7px', marginBottom: '-4px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>
+                                  <b>Description</b>
+                                </p>
+                              </div>
+                            </div>
+                          )}
+                          
+                        </div>
+                      </MDTypography>
                     </div>
-                    <div style={{ marginBottom: '10px', marginTop: '-17px' }}>
-                    <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>T R ISPAT & POWER</p> </b> 
-                    <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif',display:"flex" }}>TMT Bar 500 mts @ 40,500/EX   
-                    <ScrollLink style={{marginLeft:'100px'}}>
-                      <Button
-            variant="contained"
-            color="primary"
-            size="small"
-            style={{
-                marginTop: "0px",
-                marginLeft: "10vh",
-                marginRight: "10px",
-                marginBottom: "5px",
-                padding: "0%",             // Adjusted padding for smaller size
-                minWidth: "30px",           // Adjusted minWidth to fit content
-                height: "10px",             // Adjusted height to fit content
-                borderRadius: "50%",        // Adjusted borderRadius for a rounded shape
-                fontSize: "18px",           // Adjusted fontSize for a mini size          // Adjusted lineHeight to default
-                color: "white",
-              }}
-                                          onClick={() => {
-                                            setExpanded2(!expanded2);
-                                          }}
-                                        >
-                                          {expanded2 ? '-' : '+'}
-                                        </Button>
-                                      </ScrollLink></p> </b> 
-
-                      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>24-04-2024 | OUT/APR/49</p> </b> 
-                      <b>  <p style={{ marginBottom: '0', color: 'red', fontWeight: 'bold', fontSize: '12px' }}>390 mts | 15.25 lakhs  
-    
-                        </p> </b> 
-                      </div>
-                      {expanded2 && (
-        <div id="details">
-          {/* Add your additional details here */}
-          <div className="accordion_child_body" style={{ borderTop: '1px solid rgb(204, 204, 204)', display: 'block' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingLeft: '7px', paddingRight: '7px' ,paddingTop:'5px'}}>
-        <p style={{ margin: '0', fontSize:'12px' ,fontFamily: 'Poppins, sans-serif' }}><b>TMT Bars</b></p>
-        <p style={{ margin: '0',fontSize:'12px',fontFamily: 'Poppins, sans-serif'  }}><b>500 mts</b></p>
-        <p style={{ margin: '0' ,fontSize:'12px',fontFamily: 'Poppins, sans-serif' }}><b>40,500/Ex</b></p>
-      </div>
-      <p style={{ display: 'inline-block', padding: '5px 7px', marginBottom: '-4px' ,fontSize:'12px',fontFamily: 'Poppins, sans-serif' }}>
-        <b>Description</b>
-      </p>
-    </div>
-        </div>
-      )}
-                    </div>
-                  </MDTypography>
-                </div>
-
-                <div style={{ backgroundColor: 'white', padding: '10px', fontSize: '10px', boxShadow: '0px 4px 16px rgba(0, 0, 0, 0.1), 0px -4px 16px rgba(0, 0, 0, 0.1)', marginBottom: '10px' ,borderRadius:'15px'}}>
-                  <MDTypography variant="body2" color="textSecondary">
-                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
-                      <b><a href="salesOrderDetails.Html" style={{ fontFamily: 'Poppins, sans-serif' }}>ARUN P.S</a></b>
-                      <b> <div className="badge bg-secondary mb-4">Status</div> </b> 
-                    </div>
-                    <div style={{ marginBottom: '10px', marginTop: '-17px' }}>
-                    <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>T R ISPAT & POWER</p> </b> 
-                    <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' ,display:"flex"}}>TMT Bar 500 mts @ 40,500/EX   
-                    <ScrollLink style={{marginLeft:'100px'}}>
-                      <Button
-            variant="contained"
-            color="primary"
-            size="small"
-            style={{
-                marginTop: "0px",
-                marginLeft: "10vh",
-                marginRight: "10px",
-                marginBottom: "5px",
-                padding: "0%",             // Adjusted padding for smaller size
-                minWidth: "30px",           // Adjusted minWidth to fit content
-                height: "10px",             // Adjusted height to fit content
-                borderRadius: "50%",        // Adjusted borderRadius for a rounded shape
-                fontSize: "18px",           // Adjusted fontSize for a mini size          // Adjusted lineHeight to default
-                color: "white",
-              }}
-                                          onClick={() => {
-                                            setExpanded3(!expanded3);
-                                          }}
-                                        >
-                                          {expanded3 ? '-' : '+'}
-                                        </Button>
-                                      </ScrollLink></p> </b> 
-
-                      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>24-04-2024 | OUT/APR/49</p> </b> 
-                      <b>  <p style={{ marginBottom: '0', color: 'red', fontWeight: 'bold', fontSize: '12px' }}>390 mts | 15.25 lakhs  
-    
-                        </p> </b> 
-                      </div>
-                      {expanded3 && (
-        <div id="details">
-          {/* Add your additional details here */}
-          <div className="accordion_child_body" style={{ borderTop: '1px solid rgb(204, 204, 204)', display: 'block' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingLeft: '7px', paddingRight: '7px' ,paddingTop:'5px'}}>
-        <p style={{ margin: '0', fontSize:'12px' ,fontFamily: 'Poppins, sans-serif' }}><b>TMT Bars</b></p>
-        <p style={{ margin: '0',fontSize:'12px',fontFamily: 'Poppins, sans-serif'  }}><b>500 mts</b></p>
-        <p style={{ margin: '0' ,fontSize:'12px',fontFamily: 'Poppins, sans-serif' }}><b>40,500/Ex</b></p>
-      </div>
-      <p style={{ display: 'inline-block', padding: '5px 7px', marginBottom: '-4px' ,fontSize:'12px',fontFamily: 'Poppins, sans-serif' }}>
-        <b>Description</b>
-      </p>
-    </div>
-        </div>
-      )}
-                    </div>
-                  </MDTypography>
-                </div>
-
-                <div style={{ backgroundColor: 'white', padding: '10px', fontSize: '10px', boxShadow: '0px 4px 16px rgba(0, 0, 0, 0.1), 0px -4px 16px rgba(0, 0, 0, 0.1)', marginBottom: '10px',borderRadius:'15px' }}>
-                  <MDTypography variant="body2" color="textSecondary">
-                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
-                      <b><a href="salesOrderDetails.Html" style={{ fontFamily: 'Poppins, sans-serif' }}>KAPPOR'S</a></b>
-                      <b> <div className="badge bg-secondary mb-4">Status</div> </b> 
-                    </div>
-                    <div style={{ marginBottom: '10px', marginTop: '-17px' }}>
-                    <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>T R ISPAT & POWER</p> </b> 
-                    <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' ,display:"flex"}}>TMT Bar 500 mts @ 40,500/EX   
-                    <ScrollLink style={{marginLeft:'100px'}}>
-                      <Button
-            variant="contained"
-            color="primary"
-            size="small"
-            style={{
-                marginTop: "0px",
-                marginLeft: "10vh",
-                marginRight: "10px",
-                marginBottom: "5px",
-                padding: "0%",             // Adjusted padding for smaller size
-                minWidth: "30px",           // Adjusted minWidth to fit content
-                height: "10px",             // Adjusted height to fit content
-                borderRadius: "50%",        // Adjusted borderRadius for a rounded shape
-                fontSize: "18px",           // Adjusted fontSize for a mini size          // Adjusted lineHeight to default
-                color: "white",
-              }}
-                                          onClick={() => {
-                                            setExpanded4(!expanded4);
-                                            handleNestedExpandClick();
-                                          }}
-                                        >
-                                          {expanded4 ? '-' : '+'}
-                                        </Button>
-                                      </ScrollLink></p> </b> 
-
-                      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>24-04-2024 | OUT/APR/49</p> </b> 
-                      <b>  <p style={{ marginBottom: '0', color: 'red', fontWeight: 'bold', fontSize: '12px' }}>390 mts | 15.25 lakhs  
-    
-                        </p> </b> 
-                      </div>
-                      {expanded4 && (
-        <div id="details">
-          {/* Add your additional details here */}
-          <div className="accordion_child_body" style={{ borderTop: '1px solid rgb(204, 204, 204)', display: 'block' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingLeft: '7px', paddingRight: '7px' ,paddingTop:'5px'}}>
-        <p style={{ margin: '0', fontSize:'12px' ,fontFamily: 'Poppins, sans-serif' }}><b>TMT Bars</b></p>
-        <p style={{ margin: '0',fontSize:'12px',fontFamily: 'Poppins, sans-serif'  }}><b>500 mts</b></p>
-        <p style={{ margin: '0' ,fontSize:'12px',fontFamily: 'Poppins, sans-serif' }}><b>40,500/Ex</b></p>
-      </div>
-      <p style={{ display: 'inline-block', padding: '5px 7px', marginBottom: '-4px' ,fontSize:'12px',fontFamily: 'Poppins, sans-serif' }}>
-        <b>Description</b>
-      </p>
-    </div>
-        </div>
-      )}
-                    </div>
-                  </MDTypography>
-                </div>
-                </div>
-
+                  </div>
+                ))}
               </>
-            )}
+            }
           />
         </MDBox>
-    </div>
-)}
-
-
-{filterDivisions("Billets") && (
-    <div className="card-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '10vh' ,paddingBottom:'15vh', }}>
-        <MDBox mb={1.5} style={{ cursor: "pointer"}}>
-          <Stats_card_for_register
-            icon="layers"
-            title={<h3 style={{ fontSize: '24px', fontFamily: 'Poppins, sans-serif' }}>Billets</h3>}
-            percentage={{
-              amount: (
-                <div style={{ fontFamily: 'Poppins, sans-serif' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '1px', fontSize: '12px' }}>
-                    <div style={{ textAlign: 'left', flex: 1 }}>
-                      <div>&nbsp;&nbsp;</div>
-                      <div>10000&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                    </div>
-                    <div style={{ textAlign: 'center', flex: 1 }}>
-                      <div>&nbsp;&nbsp;</div>
-                      <div>2000&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                    </div>
-                    <div style={{ textAlign: 'center', flex: 1 }}>
-                      <div>&nbsp;&nbsp;</div>
-                      <div>8000&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                    </div>
-                    <div style={{ textAlign: 'right', flex: 1 }}>
-                      <div>&nbsp;&nbsp;</div>
-                      <div>40500&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                    </div>
-                  </div>
-                </div>
-              ),
-            }}
-            details={(
-                <>
-                <div style={{ maxHeight: '300px', overflowY: 'auto' ,boxShadow: '0px 4px 16px rgba(0, 0, 0, 0.1), 0px -4px 16px rgba(0, 0, 0, 0.1)',}}>
-                  {/* Additional details with different backgrounds and shadows */}
-                  <div style={{ backgroundColor: 'white', padding: '10px', fontSize: '10px',  boxShadow: '0px 4px 16px rgba(0, 0, 0, 0.1), 0px -4px 16px rgba(0, 0, 0, 0.1)', marginBottom: '10px' ,borderRadius:'15px'}}>
-                    <MDTypography variant="body2" color="textSecondary">
-                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
-                        <b><a href="salesOrderDetails.Html" style={{ fontFamily: 'Poppins, sans-serif' }}>SANJAY K.P</a></b>
-                       <b> <div className="badge bg-secondary mb-4">Status</div> </b> 
-                      </div>
-                      <div style={{ marginBottom: '10px', marginTop: '-17px' }}>
-                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>T R ISPAT & POWER</p> </b> 
-                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' ,display:"flex"}}>TMT Bar 500 mts @ 40,500/EX   
-                      <ScrollLink  style={{marginLeft:'100px'}}>
-                        <Button
-              variant="contained"
-              color="primary"
-              size="small"
-              style={{
-                  marginTop: "0px",
-                  marginLeft: "10vh",
-                  marginRight: "10px",
-                  marginBottom: "5px",
-                  padding: "0%",             // Adjusted padding for smaller size
-                  minWidth: "30px",           // Adjusted minWidth to fit content
-                  height: "10px",             // Adjusted height to fit content
-                  borderRadius: "50%",        // Adjusted borderRadius for a rounded shape
-                  fontSize: "18px",           // Adjusted fontSize for a mini size          // Adjusted lineHeight to default
-                  color: "white",
-                }}
-                                            onClick={() => {
-                                              setExpanded5(!expanded5);
-                                              handleNestedExpandClick();
-                                            }}
-                                          >
-                                            {expanded5 ? '-' : '+'}
-                                          </Button>
-                                        </ScrollLink></p> </b> 
-  
-                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>24-04-2024 | OUT/APR/49</p> </b> 
-                        <b>  <p style={{ marginBottom: '0', color: 'red', fontWeight: 'bold', fontSize: '12px' }}>390 mts | 15.25 lakhs  
-      
-                          </p> </b> 
-                        </div>
-                        {expanded5 && (
-          <div id="details">
-            {/* Add your additional details here */}
-            <div className="accordion_child_body" style={{ borderTop: '1px solid rgb(204, 204, 204)', display: 'block' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingLeft: '7px', paddingRight: '7px' ,paddingTop:'5px'}}>
-          <p style={{ margin: '0', fontSize:'12px' ,fontFamily: 'Poppins, sans-serif' }}><b>TMT Bars</b></p>
-          <p style={{ margin: '0',fontSize:'12px',fontFamily: 'Poppins, sans-serif'  }}><b>500 mts</b></p>
-          <p style={{ margin: '0' ,fontSize:'12px',fontFamily: 'Poppins, sans-serif' }}><b>40,500/Ex</b></p>
-        </div>
-        <p style={{ display: 'inline-block', padding: '5px 7px', marginBottom: '-4px' ,fontSize:'12px',fontFamily: 'Poppins, sans-serif' }}>
-          <b>Description</b>
-        </p>
       </div>
-          </div>
-        )}
-                      </div>
-                    </MDTypography>
-                  </div>
-  
-                  <div style={{ backgroundColor: 'white', padding: '10px', fontSize: '10px', boxShadow: '0px 4px 16px rgba(0, 0, 0, 0.1), 0px -4px 16px rgba(0, 0, 0, 0.1)', marginBottom: '10px' ,borderRadius:'15px'}}>
-                    <MDTypography variant="body2" color="textSecondary">
-                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
-                        <b><a href="salesOrderDetails.Html" style={{ fontFamily: 'Poppins, sans-serif' }}>JAIDEV S</a></b>
-                        <b> <div className="badge bg-secondary mb-4">Status</div> </b> 
-                      </div>
-                      <div style={{ marginBottom: '10px', marginTop: '-17px' }}>
-                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>T R ISPAT & POWER</p> </b> 
-                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' ,display:"flex"}}>TMT Bar 500 mts @ 40,500/EX   
-                      <ScrollLink  style={{marginLeft:'100px'}}>
-                        <Button
-              variant="contained"
-              color="primary"
-              size="small"
-              style={{
-                  marginTop: "0px",
-                  marginLeft: "10vh",
-                  marginRight: "10px",
-                  marginBottom: "5px",
-                  padding: "0%",             // Adjusted padding for smaller size
-                  minWidth: "30px",           // Adjusted minWidth to fit content
-                  height: "10px",             // Adjusted height to fit content
-                  borderRadius: "50%",        // Adjusted borderRadius for a rounded shape
-                  fontSize: "18px",           // Adjusted fontSize for a mini size          // Adjusted lineHeight to default
-                  color: "white",
-                }}
-                                            onClick={() => {
-                                              setExpanded6(!expanded6);
-                                              handleNestedExpandClick();
-                                            }}
-                                          >
-                                            {expanded6 ? '-' : '+'}
-                                          </Button>
-                                        </ScrollLink></p> </b> 
-  
-                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>24-04-2024 | OUT/APR/49</p> </b> 
-                        <b>  <p style={{ marginBottom: '0', color: 'red', fontWeight: 'bold', fontSize: '12px' }}>390 mts | 15.25 lakhs  
-      
-                          </p> </b> 
-                        </div>
-                        {expanded6 && (
-          <div id="details">
-            {/* Add your additional details here */}
-            <div className="accordion_child_body" style={{ borderTop: '1px solid rgb(204, 204, 204)', display: 'block' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingLeft: '7px', paddingRight: '7px' ,paddingTop:'5px'}}>
-          <p style={{ margin: '0', fontSize:'12px' ,fontFamily: 'Poppins, sans-serif' }}><b>TMT Bars</b></p>
-          <p style={{ margin: '0',fontSize:'12px',fontFamily: 'Poppins, sans-serif'  }}><b>500 mts</b></p>
-          <p style={{ margin: '0' ,fontSize:'12px',fontFamily: 'Poppins, sans-serif' }}><b>40,500/Ex</b></p>
-        </div>
-        <p style={{ display: 'inline-block', padding: '5px 7px', marginBottom: '-4px' ,fontSize:'12px',fontFamily: 'Poppins, sans-serif' }}>
-          <b>Description</b>
-        </p>
-      </div>
-          </div>
-        )}
-                      </div>
-                    </MDTypography>
-                  </div>
-  
-                  <div style={{ backgroundColor: 'white', padding: '10px', fontSize: '10px', boxShadow: '0px 4px 16px rgba(0, 0, 0, 0.1), 0px -4px 16px rgba(0, 0, 0, 0.1)', marginBottom: '10px' ,borderRadius:'15px'}}>
-                    <MDTypography variant="body2" color="textSecondary">
-                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
-                        <b><a href="salesOrderDetails.Html" style={{ fontFamily: 'Poppins, sans-serif' }}>ARUN P.S</a></b>
-                        <b> <div className="badge bg-secondary mb-4">Status</div> </b> 
-                      </div>
-                      <div style={{ marginBottom: '10px', marginTop: '-17px' }}>
-                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>T R ISPAT & POWER</p> </b> 
-                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' ,display:"flex"}}>TMT Bar 500 mts @ 40,500/EX   
-                      <ScrollLink  style={{marginLeft:'100px'}}>
-                        <Button
-              variant="contained"
-              color="primary"
-              size="small"
-              style={{
-                  marginTop: "0px",
-                  marginLeft: "10vh",
-                  marginRight: "10px",
-                  marginBottom: "5px",
-                  padding: "0%",             // Adjusted padding for smaller size
-                  minWidth: "30px",           // Adjusted minWidth to fit content
-                  height: "10px",             // Adjusted height to fit content
-                  borderRadius: "50%",        // Adjusted borderRadius for a rounded shape
-                  fontSize: "18px",           // Adjusted fontSize for a mini size          // Adjusted lineHeight to default
-                  color: "white",
-                }}
-                                            onClick={() => {
-                                              setExpanded7(!expanded7);
-                                              handleNestedExpandClick();
-                                            }}
-                                          >
-                                            {expanded7 ? '-' : '+'}
-                                          </Button>
-                                        </ScrollLink></p> </b> 
-  
-                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>24-04-2024 | OUT/APR/49</p> </b> 
-                        <b>  <p style={{ marginBottom: '0', color: 'red', fontWeight: 'bold', fontSize: '12px' }}>390 mts | 15.25 lakhs  
-      
-                          </p> </b> 
-                        </div>
-                        {expanded7 && (
-          <div id="details">
-            {/* Add your additional details here */}
-            <div className="accordion_child_body" style={{ borderTop: '1px solid rgb(204, 204, 204)', display: 'block' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingLeft: '7px', paddingRight: '7px' ,paddingTop:'5px'}}>
-          <p style={{ margin: '0', fontSize:'12px' ,fontFamily: 'Poppins, sans-serif' }}><b>TMT Bars</b></p>
-          <p style={{ margin: '0',fontSize:'12px',fontFamily: 'Poppins, sans-serif'  }}><b>500 mts</b></p>
-          <p style={{ margin: '0' ,fontSize:'12px',fontFamily: 'Poppins, sans-serif' }}><b>40,500/Ex</b></p>
-        </div>
-        <p style={{ display: 'inline-block', padding: '5px 7px', marginBottom: '-4px' ,fontSize:'12px',fontFamily: 'Poppins, sans-serif' }}>
-          <b>Description</b>
-        </p>
-      </div>
-          </div>
-        )}
-                      </div>
-                    </MDTypography>
-                  </div>
-  
-                  <div style={{ backgroundColor: 'white', padding: '10px', fontSize: '10px', boxShadow: '0px 4px 16px rgba(0, 0, 0, 0.1), 0px -4px 16px rgba(0, 0, 0, 0.1)', marginBottom: '10px',borderRadius:'15px' }}>
-                    <MDTypography variant="body2" color="textSecondary">
-                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
-                        <b><a href="salesOrderDetails.Html" style={{ fontFamily: 'Poppins, sans-serif' }}>KAPPOR'S</a></b>
-                        <b> <div className="badge bg-secondary mb-4">Status</div> </b> 
-                      </div>
-                      <div style={{ marginBottom: '10px', marginTop: '-17px' }}>
-                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>T R ISPAT & POWER</p> </b> 
-                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif',display:"flex" }}>TMT Bar 500 mts @ 40,500/EX   
-                      <ScrollLink  style={{marginLeft:'100px'}}>
-                        <Button
-              variant="contained"
-              color="primary"
-              size="small"
-              style={{
-                  marginTop: "0px",
-                  marginLeft: "10vh",
-                  marginRight: "10px",
-                  marginBottom: "5px",
-                  padding: "0%",             // Adjusted padding for smaller size
-                  minWidth: "30px",           // Adjusted minWidth to fit content
-                  height: "10px",             // Adjusted height to fit content
-                  borderRadius: "50%",        // Adjusted borderRadius for a rounded shape
-                  fontSize: "18px",           // Adjusted fontSize for a mini size          // Adjusted lineHeight to default
-                  color: "white",
-                }}
-                                            onClick={() => {
-                                              setExpanded8(!expanded8);
-                                              handleNestedExpandClick();
-                                            }}
-                                          >
-                                            {expanded8 ? '-' : '+'}
-                                          </Button>
-                                        </ScrollLink></p> </b> 
-  
-                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>24-04-2024 | OUT/APR/49</p> </b> 
-                        <b>  <p style={{ marginBottom: '0', color: 'red', fontWeight: 'bold', fontSize: '12px' }}>390 mts | 15.25 lakhs  
-      
-                          </p> </b> 
-                        </div>
-                        {expanded8 && (
-          <div id="details">
-            {/* Add your additional details here */}
-            <div className="accordion_child_body" style={{ borderTop: '1px solid rgb(204, 204, 204)', display: 'block' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingLeft: '7px', paddingRight: '7px' ,paddingTop:'5px'}}>
-          <p style={{ margin: '0', fontSize:'12px' ,fontFamily: 'Poppins, sans-serif' }}><b>TMT Bars</b></p>
-          <p style={{ margin: '0',fontSize:'12px',fontFamily: 'Poppins, sans-serif'  }}><b>500 mts</b></p>
-          <p style={{ margin: '0' ,fontSize:'12px',fontFamily: 'Poppins, sans-serif' }}><b>40,500/Ex</b></p>
-        </div>
-        <p style={{ display: 'inline-block', padding: '5px 7px', marginBottom: '-4px' ,fontSize:'12px',fontFamily: 'Poppins, sans-serif' }}>
-          <b>Description</b>
-        </p>
-      </div>
-          </div>
-        )}
-                      </div>
-                    </MDTypography>
-                  </div>
-                  </div>
-  
-                </>
-              )}
-            />
-          </MDBox>
-      </div>
-  )}
-             {filterDivisions("Structures") && (
-    <div className="card-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '10vh' ,paddingBottom:'15vh'}}>
-        <MDBox mb={1.5} style={{ cursor: "pointer" }}>
-          <Stats_card_for_register
-            icon="building"
-            title={<h3 style={{ fontSize: '24px', fontFamily: 'Poppins, sans-serif' }}>Structures</h3>}
-            percentage={{
-              amount: (
-                <div style={{ fontFamily: 'Poppins, sans-serif' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '1px', fontSize: '12px' }}>
-                    <div style={{ textAlign: 'left', flex: 1 }}>
-                      <div>&nbsp;&nbsp;</div>
-                      <div>10000&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                    </div>
-                    <div style={{ textAlign: 'center', flex: 1 }}>
-                      <div>&nbsp;&nbsp;</div>
-                      <div>2000&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                    </div>
-                    <div style={{ textAlign: 'center', flex: 1 }}>
-                      <div>&nbsp;&nbsp;</div>
-                      <div>8000&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                    </div>
-                    <div style={{ textAlign: 'right', flex: 1 }}>
-                      <div>&nbsp;&nbsp;</div>
-                      <div>40500&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                    </div>
-                  </div>
-                </div>
-              ),
-            }}
-            details={(
-                <>
-                <div style={{ maxHeight: '300px', overflowY: 'auto' ,boxShadow: '0px 4px 16px rgba(0, 0, 0, 0.1), 0px -4px 16px rgba(0, 0, 0, 0.1)',}}>
-                  {/* Additional details with different backgrounds and shadows */}
-                  <div style={{ backgroundColor: 'white', padding: '10px', fontSize: '10px',  boxShadow: '0px 4px 16px rgba(0, 0, 0, 0.1), 0px -4px 16px rgba(0, 0, 0, 0.1)', marginBottom: '10px' ,borderRadius:'15px'}}>
-                    <MDTypography variant="body2" color="textSecondary">
-                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
-                        <b><a href="salesOrderDetails.Html" style={{ fontFamily: 'Poppins, sans-serif' }}>SANJAY K.P</a></b>
-                       <b> <div className="badge bg-secondary mb-4">Status</div> </b> 
-                      </div>
-                      <div style={{ marginBottom: '10px', marginTop: '-17px' }}>
-                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>T R ISPAT & POWER</p> </b> 
-                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' ,display:"flex"}}>TMT Bar 500 mts @ 40,500/EX   
-                      <ScrollLink  style={{marginLeft:'100px'}}>
-                        <Button
-              variant="contained"
-              color="primary"
-              size="small"
-              style={{
-                  marginTop: "0px",
-                  marginLeft: "10vh",
-                  marginRight: "10px",
-                  marginBottom: "5px",
-                  padding: "0%",             // Adjusted padding for smaller size
-                  minWidth: "30px",           // Adjusted minWidth to fit content
-                  height: "10px",             // Adjusted height to fit content
-                  borderRadius: "50%",        // Adjusted borderRadius for a rounded shape
-                  fontSize: "18px",           // Adjusted fontSize for a mini size          // Adjusted lineHeight to default
-                  color: "white",
-                }}
-                                            onClick={() => {
-                                              setExpanded9(!expanded9);
-                                              handleNestedExpandClick();
-                                            }}
-                                          >
-                                            {expanded9 ? '-' : '+'}
-                                          </Button>
-                                        </ScrollLink></p> </b> 
-  
-                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>24-04-2024 | OUT/APR/49</p> </b> 
-                        <b>  <p style={{ marginBottom: '0', color: 'red', fontWeight: 'bold', fontSize: '12px' }}>390 mts | 15.25 lakhs  
-      
-                          </p> </b> 
-                        </div>
-                        {expanded9 && (
-          <div id="details">
-            {/* Add your additional details here */}
-            <div className="accordion_child_body" style={{ borderTop: '1px solid rgb(204, 204, 204)', display: 'block' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingLeft: '7px', paddingRight: '7px' ,paddingTop:'5px'}}>
-          <p style={{ margin: '0', fontSize:'12px' ,fontFamily: 'Poppins, sans-serif' }}><b>TMT Bars</b></p>
-          <p style={{ margin: '0',fontSize:'12px',fontFamily: 'Poppins, sans-serif'  }}><b>500 mts</b></p>
-          <p style={{ margin: '0' ,fontSize:'12px',fontFamily: 'Poppins, sans-serif' }}><b>40,500/Ex</b></p>
-        </div>
-        <p style={{ display: 'inline-block', padding: '5px 7px', marginBottom: '-4px' ,fontSize:'12px',fontFamily: 'Poppins, sans-serif' }}>
-          <b>Description</b>
-        </p>
-      </div>
-          </div>
-        )}
-                      </div>
-                    </MDTypography>
-                  </div>
-  
-                  <div style={{ backgroundColor: 'white', padding: '10px', fontSize: '10px', boxShadow: '0px 4px 16px rgba(0, 0, 0, 0.1), 0px -4px 16px rgba(0, 0, 0, 0.1)', marginBottom: '10px' ,borderRadius:'15px'}}>
-                    <MDTypography variant="body2" color="textSecondary">
-                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
-                        <b><a href="salesOrderDetails.Html" style={{ fontFamily: 'Poppins, sans-serif' }}>JAIDEV S</a></b>
-                        <b> <div className="badge bg-secondary mb-4">Status</div> </b> 
-                      </div>
-                      <div style={{ marginBottom: '10px', marginTop: '-17px' }}>
-                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>T R ISPAT & POWER</p> </b> 
-                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' ,display:"flex"}}>TMT Bar 500 mts @ 40,500/EX   
-                      <ScrollLink style={{marginLeft:'100px'}}>
-                        <Button
-              variant="contained"
-              color="primary"
-              size="small"
-              style={{
-                  marginTop: "0px",
-                  marginLeft: "10vh",
-                  marginRight: "10px",
-                  marginBottom: "5px",
-                  padding: "0%",             // Adjusted padding for smaller size
-                  minWidth: "30px",           // Adjusted minWidth to fit content
-                  height: "10px",             // Adjusted height to fit content
-                  borderRadius: "50%",        // Adjusted borderRadius for a rounded shape
-                  fontSize: "18px",           // Adjusted fontSize for a mini size          // Adjusted lineHeight to default
-                  color: "white",
-                }}
-                                            onClick={() => {
-                                              setExpanded10(!expanded10);
-                                              handleNestedExpandClick();
-                                            }}
-                                          >
-                                            {expanded10 ? '-' : '+'}
-                                          </Button>
-                                        </ScrollLink></p> </b> 
-  
-                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>24-04-2024 | OUT/APR/49</p> </b> 
-                        <b>  <p style={{ marginBottom: '0', color: 'red', fontWeight: 'bold', fontSize: '12px' }}>390 mts | 15.25 lakhs  
-      
-                          </p> </b> 
-                        </div>
-                        {expanded10 && (
-          <div id="details">
-            {/* Add your additional details here */}
-            <div className="accordion_child_body" style={{ borderTop: '1px solid rgb(204, 204, 204)', display: 'block' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingLeft: '7px', paddingRight: '7px' ,paddingTop:'5px'}}>
-          <p style={{ margin: '0', fontSize:'12px' ,fontFamily: 'Poppins, sans-serif' }}><b>TMT Bars</b></p>
-          <p style={{ margin: '0',fontSize:'12px',fontFamily: 'Poppins, sans-serif'  }}><b>500 mts</b></p>
-          <p style={{ margin: '0' ,fontSize:'12px',fontFamily: 'Poppins, sans-serif' }}><b>40,500/Ex</b></p>
-        </div>
-        <p style={{ display: 'inline-block', padding: '5px 7px', marginBottom: '-4px' ,fontSize:'12px',fontFamily: 'Poppins, sans-serif' }}>
-          <b>Description</b>
-        </p>
-      </div>
-          </div>
-        )}
-                      </div>
-                    </MDTypography>
-                  </div>
-  
-                  <div style={{ backgroundColor: 'white', padding: '10px', fontSize: '10px', boxShadow: '0px 4px 16px rgba(0, 0, 0, 0.1), 0px -4px 16px rgba(0, 0, 0, 0.1)', marginBottom: '10px' ,borderRadius:'15px'}}>
-                    <MDTypography variant="body2" color="textSecondary">
-                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
-                        <b><a href="salesOrderDetails.Html" style={{ fontFamily: 'Poppins, sans-serif' }}>ARUN P.S</a></b>
-                        <b> <div className="badge bg-secondary mb-4">Status</div> </b> 
-                      </div>
-                      <div style={{ marginBottom: '10px', marginTop: '-17px' }}>
-                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>T R ISPAT & POWER</p> </b> 
-                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif',display:"flex" }}>TMT Bar 500 mts @ 40,500/EX   
-                      <ScrollLink  style={{marginLeft:'100px'}}>
-                        <Button
-              variant="contained"
-              color="primary"
-              size="small"
-              style={{
-                  marginTop: "0px",
-                  marginLeft: "10vh",
-                  marginRight: "10px",
-                  marginBottom: "5px",
-                  padding: "0%",             // Adjusted padding for smaller size
-                  minWidth: "30px",           // Adjusted minWidth to fit content
-                  height: "10px",             // Adjusted height to fit content
-                  borderRadius: "50%",        // Adjusted borderRadius for a rounded shape
-                  fontSize: "18px",           // Adjusted fontSize for a mini size          // Adjusted lineHeight to default
-                  color: "white",
-                }}
-                                            onClick={() => {
-                                              setExpanded11(!expanded11);
-                                              handleNestedExpandClick();
-                                            }}
-                                          >
-                                            {expanded11 ? '-' : '+'}
-                                          </Button>
-                                        </ScrollLink></p> </b> 
-  
-                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>24-04-2024 | OUT/APR/49</p> </b> 
-                        <b>  <p style={{ marginBottom: '0', color: 'red', fontWeight: 'bold', fontSize: '12px' }}>390 mts | 15.25 lakhs  
-      
-                          </p> </b> 
-                        </div>
-                        {expanded11 && (
-          <div id="details">
-            {/* Add your additional details here */}
-            <div className="accordion_child_body" style={{ borderTop: '1px solid rgb(204, 204, 204)', display: 'block' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingLeft: '7px', paddingRight: '7px' ,paddingTop:'5px'}}>
-          <p style={{ margin: '0', fontSize:'12px' ,fontFamily: 'Poppins, sans-serif' }}><b>TMT Bars</b></p>
-          <p style={{ margin: '0',fontSize:'12px',fontFamily: 'Poppins, sans-serif'  }}><b>500 mts</b></p>
-          <p style={{ margin: '0' ,fontSize:'12px',fontFamily: 'Poppins, sans-serif' }}><b>40,500/Ex</b></p>
-        </div>
-        <p style={{ display: 'inline-block', padding: '5px 7px', marginBottom: '-4px' ,fontSize:'12px',fontFamily: 'Poppins, sans-serif' }}>
-          <b>Description</b>
-        </p>
-      </div>
-          </div>
-        )}
-                      </div>
-                    </MDTypography>
-                  </div>
-  
-                  <div style={{ backgroundColor: 'white', padding: '10px', fontSize: '10px', boxShadow: '0px 4px 16px rgba(0, 0, 0, 0.1), 0px -4px 16px rgba(0, 0, 0, 0.1)', marginBottom: '10px',borderRadius:'15px' }}>
-                    <MDTypography variant="body2" color="textSecondary">
-                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
-                        <b><a href="salesOrderDetails.Html" style={{ fontFamily: 'Poppins, sans-serif' }}>KAPPOR'S</a></b>
-                        <b> <div className="badge bg-secondary mb-4">Status</div> </b> 
-                      </div>
-                      <div style={{ marginBottom: '10px', marginTop: '-17px' }}>
-                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>T R ISPAT & POWER</p> </b> 
-                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' ,display:"flex"}}>TMT Bar 500 mts @ 40,500/EX   
-                      <ScrollLink  style={{marginLeft:'100px'}}>
-                        <Button
-              variant="contained"
-              color="primary"
-              size="small"
-              style={{
-                  marginTop: "0px",
-                  marginLeft: "10vh",
-                  marginRight: "10px",
-                  marginBottom: "5px",
-                  padding: "0%",             // Adjusted padding for smaller size
-                  minWidth: "30px",           // Adjusted minWidth to fit content
-                  height: "10px",             // Adjusted height to fit content
-                  borderRadius: "50%",        // Adjusted borderRadius for a rounded shape
-                  fontSize: "18px",           // Adjusted fontSize for a mini size          // Adjusted lineHeight to default
-                  color: "white",
-                }}
-                                            onClick={() => {
-                                              setExpanded12(!expanded12);
-                                              handleNestedExpandClick();
-                                            }}
-                                          >
-                                            {expanded12 ? '-' : '+'}
-                                          </Button>
-                                        </ScrollLink></p> </b> 
-  
-                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>24-04-2024 | OUT/APR/49</p> </b> 
-                        <b>  <p style={{ marginBottom: '0', color: 'red', fontWeight: 'bold', fontSize: '12px' }}>390 mts | 15.25 lakhs  
-      
-                          </p> </b> 
-                        </div>
-                        {expanded12 && (
-          <div id="details">
-            {/* Add your additional details here */}
-            <div className="accordion_child_body" style={{ borderTop: '1px solid rgb(204, 204, 204)', display: 'block' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingLeft: '7px', paddingRight: '7px' ,paddingTop:'5px'}}>
-          <p style={{ margin: '0', fontSize:'12px' ,fontFamily: 'Poppins, sans-serif' }}><b>TMT Bars</b></p>
-          <p style={{ margin: '0',fontSize:'12px',fontFamily: 'Poppins, sans-serif'  }}><b>500 mts</b></p>
-          <p style={{ margin: '0' ,fontSize:'12px',fontFamily: 'Poppins, sans-serif' }}><b>40,500/Ex</b></p>
-        </div>
-        <p style={{ display: 'inline-block', padding: '5px 7px', marginBottom: '-4px' ,fontSize:'12px',fontFamily: 'Poppins, sans-serif' }}>
-          <b>Description</b>
-        </p>
-      </div>
-          </div>
-        )}
-                      </div>
-                    </MDTypography>
-                  </div>
-                  </div>
-  
-                </>
-              )}
-            />
-          </MDBox>
-      </div>
-  )}
-  
-            {filterDivisions("Pipes") && (
-    <div className="card-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '10vh',paddingBottom:'15vh' }}>
-
-        <MDBox mb={1.5} style={{ cursor: "pointer" }}>
-          <Stats_card_for_register
-            icon="plumbing"
-            title={<h3 style={{ fontSize: '24px', fontFamily: 'Poppins, sans-serif' }}>Pipes</h3>}
-            percentage={{
-              amount: (
-                <div style={{ fontFamily: 'Poppins, sans-serif' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '1px', fontSize: '12px' }}>
-                    <div style={{ textAlign: 'left', flex: 1 }}>
-                      <div>&nbsp;&nbsp;</div>
-                      <div>10000&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                    </div>
-                    <div style={{ textAlign: 'center', flex: 1 }}>
-                      <div>&nbsp;&nbsp;</div>
-                      <div>2000&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                    </div>
-                    <div style={{ textAlign: 'center', flex: 1 }}>
-                      <div>&nbsp;&nbsp;</div>
-                      <div>8000&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                    </div>
-                    <div style={{ textAlign: 'right', flex: 1 }}>
-                      <div>&nbsp;&nbsp;</div>
-                      <div>40500&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                    </div>
-                  </div>
-                </div>
-              ),
-            }}
-            details={(
-                <>
-                <div style={{ maxHeight: '300px', overflowY: 'auto' ,boxShadow: '0px 4px 16px rgba(0, 0, 0, 0.1), 0px -4px 16px rgba(0, 0, 0, 0.1)',}}>
-                  {/* Additional details with different backgrounds and shadows */}
-                  <div style={{ backgroundColor: 'white', padding: '10px', fontSize: '10px',  boxShadow: '0px 4px 16px rgba(0, 0, 0, 0.1), 0px -4px 16px rgba(0, 0, 0, 0.1)', marginBottom: '10px' ,borderRadius:'15px'}}>
-                    <MDTypography variant="body2" color="textSecondary">
-                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
-                        <b><a href="salesOrderDetails.Html" style={{ fontFamily: 'Poppins, sans-serif' }}>SANJAY K.P</a></b>
-                       <b> <div className="badge bg-secondary mb-4">Status</div> </b> 
-                      </div>
-                      <div style={{ marginBottom: '10px', marginTop: '-17px' }}>
-                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>T R ISPAT & POWER</p> </b> 
-                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' ,display:"flex"}}>TMT Bar 500 mts @ 40,500/EX   
-                      <ScrollLink  style={{marginLeft:'100px'}}>
-                        <Button
-              variant="contained"
-              color="primary"
-              size="small"
-              style={{
-                  marginTop: "0px",
-                  marginLeft: "10vh",
-                  marginRight: "10px",
-                  marginBottom: "5px",
-                  padding: "0%",             // Adjusted padding for smaller size
-                  minWidth: "30px",           // Adjusted minWidth to fit content
-                  height: "10px",             // Adjusted height to fit content
-                  borderRadius: "50%",        // Adjusted borderRadius for a rounded shape
-                  fontSize: "18px",           // Adjusted fontSize for a mini size          // Adjusted lineHeight to default
-                  color: "white",
-                }}
-                                            onClick={() => {
-                                              setExpanded13(!expanded13);
-                                              handleNestedExpandClick();
-                                            }}
-                                          >
-                                            {expanded13 ? '-' : '+'}
-                                          </Button>
-                                        </ScrollLink></p> </b> 
-  
-                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>24-04-2024 | OUT/APR/49</p> </b> 
-                        <b>  <p style={{ marginBottom: '0', color: 'red', fontWeight: 'bold', fontSize: '12px' }}>390 mts | 15.25 lakhs  
-      
-                          </p> </b> 
-                        </div>
-                        {expanded13 && (
-          <div id="details">
-            {/* Add your additional details here */}
-            <div className="accordion_child_body" style={{ borderTop: '1px solid rgb(204, 204, 204)', display: 'block' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingLeft: '7px', paddingRight: '7px' ,paddingTop:'5px'}}>
-          <p style={{ margin: '0', fontSize:'12px' ,fontFamily: 'Poppins, sans-serif' }}><b>TMT Bars</b></p>
-          <p style={{ margin: '0',fontSize:'12px',fontFamily: 'Poppins, sans-serif'  }}><b>500 mts</b></p>
-          <p style={{ margin: '0' ,fontSize:'12px',fontFamily: 'Poppins, sans-serif' }}><b>40,500/Ex</b></p>
-        </div>
-        <p style={{ display: 'inline-block', padding: '5px 7px', marginBottom: '-4px' ,fontSize:'12px',fontFamily: 'Poppins, sans-serif' }}>
-          <b>Description</b>
-        </p>
-      </div>
-          </div>
-        )}
-                      </div>
-                    </MDTypography>
-                  </div>
-  
-                  <div style={{ backgroundColor: 'white', padding: '10px', fontSize: '10px', boxShadow: '0px 4px 16px rgba(0, 0, 0, 0.1), 0px -4px 16px rgba(0, 0, 0, 0.1)', marginBottom: '10px' ,borderRadius:'15px'}}>
-                    <MDTypography variant="body2" color="textSecondary">
-                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
-                        <b><a href="salesOrderDetails.Html" style={{ fontFamily: 'Poppins, sans-serif' }}>JAIDEV S</a></b>
-                        <b> <div className="badge bg-secondary mb-4">Status</div> </b> 
-                      </div>
-                      <div style={{ marginBottom: '10px', marginTop: '-17px' }}>
-                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>T R ISPAT & POWER</p> </b> 
-<b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif',display:"flex"}}>TMT Bar 500 mts @ 40,500/EX   
-                      <ScrollLink  >
-                        <Button
-              variant="contained"
-              color="primary"
-              size="small"
-              style={{
-                  marginTop: "0px",
-                  marginLeft: "10vh",
-                  marginRight: "10px",
-                  marginBottom: "5px",
-                  padding: "0%",             // Adjusted padding for smaller size
-                  minWidth: "30px",           // Adjusted minWidth to fit content
-                  height: "10px",             // Adjusted height to fit content
-                  borderRadius: "50%",        // Adjusted borderRadius for a rounded shape
-                  fontSize: "18px",           // Adjusted fontSize for a mini size          // Adjusted lineHeight to default
-                  color: "white",
-                }}
-                                            onClick={() => {
-                                              setExpanded14(!expanded14);
-                                            }}
-                                          >
-                                            {expanded14 ? '-' : '+'}
-                                          </Button>
-                                        </ScrollLink></p> </b> 
-  
-                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>24-04-2024 | OUT/APR/49</p> </b> 
-                        <b>  <p style={{ marginBottom: '0', color: 'red', fontWeight: 'bold', fontSize: '12px' }}>390 mts | 15.25 lakhs  
-      
-                          </p> </b> 
-                        </div>
-                        {expanded14 && (
-          <div id="details">
-            {/* Add your additional details here */}
-            <div className="accordion_child_body" style={{ borderTop: '1px solid rgb(204, 204, 204)', display: 'block' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingLeft: '7px', paddingRight: '7px' ,paddingTop:'5px'}}>
-          <p style={{ margin: '0', fontSize:'12px' ,fontFamily: 'Poppins, sans-serif' }}><b>TMT Bars</b></p>
-          <p style={{ margin: '0',fontSize:'12px',fontFamily: 'Poppins, sans-serif'  }}><b>500 mts</b></p>
-          <p style={{ margin: '0' ,fontSize:'12px',fontFamily: 'Poppins, sans-serif' }}><b>40,500/Ex</b></p>
-        </div>
-        <p style={{ display: 'inline-block', padding: '5px 7px', marginBottom: '-4px' ,fontSize:'12px',fontFamily: 'Poppins, sans-serif' }}>
-          <b>Description</b>
-        </p>
-      </div>
-          </div>
-        )}
-                      </div>
-                    </MDTypography>
-                  </div>
-  
-                  <div style={{ backgroundColor: 'white', padding: '10px', fontSize: '10px', boxShadow: '0px 4px 16px rgba(0, 0, 0, 0.1), 0px -4px 16px rgba(0, 0, 0, 0.1)', marginBottom: '10px' ,borderRadius:'15px'}}>
-                    <MDTypography variant="body2" color="textSecondary">
-                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
-                        <b><a href="salesOrderDetails.Html" style={{ fontFamily: 'Poppins, sans-serif' }}>ARUN P.S</a></b>
-                        <b> <div className="badge bg-secondary mb-4">Status</div> </b> 
-                      </div>
-                      <div style={{ marginBottom: '10px', marginTop: '-17px' }}>
-                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>T R ISPAT & POWER</p> </b> 
-                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' ,display:"flex"}}>TMT Bar 500 mts @ 40,500/EX   
-                      <ScrollLink  style={{marginLeft:'100px'}}>
-                        <Button
-              variant="contained"
-              color="primary"
-              size="small"
-              style={{
-                  marginTop: "0px",
-                  marginLeft: "10vh",
-                  marginRight: "10px",
-                  marginBottom: "5px",
-                  padding: "0%",             // Adjusted padding for smaller size
-                  minWidth: "30px",           // Adjusted minWidth to fit content
-                  height: "10px",             // Adjusted height to fit content
-                  borderRadius: "50%",        // Adjusted borderRadius for a rounded shape
-                  fontSize: "18px",           // Adjusted fontSize for a mini size          // Adjusted lineHeight to default
-                  color: "white",
-                }}
-                                            onClick={() => {
-                                              setExpanded15(!expanded15);
-                                              handleNestedExpandClick();
-                                            }}
-                                          >
-                                            {expanded15 ? '-' : '+'}
-                                          </Button>
-                                        </ScrollLink></p> </b> 
-  
-                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>24-04-2024 | OUT/APR/49</p> </b> 
-                        <b>  <p style={{ marginBottom: '0', color: 'red', fontWeight: 'bold', fontSize: '12px' }}>390 mts | 15.25 lakhs  
-      
-                          </p> </b> 
-                        </div>
-                        {expanded15 && (
-          <div id="details">
-            {/* Add your additional details here */}
-            <div className="accordion_child_body" style={{ borderTop: '1px solid rgb(204, 204, 204)', display: 'block' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingLeft: '7px', paddingRight: '7px' ,paddingTop:'5px'}}>
-          <p style={{ margin: '0', fontSize:'12px' ,fontFamily: 'Poppins, sans-serif' }}><b>TMT Bars</b></p>
-          <p style={{ margin: '0',fontSize:'12px',fontFamily: 'Poppins, sans-serif'  }}><b>500 mts</b></p>
-          <p style={{ margin: '0' ,fontSize:'12px',fontFamily: 'Poppins, sans-serif' }}><b>40,500/Ex</b></p>
-        </div>
-        <p style={{ display: 'inline-block', padding: '5px 7px', marginBottom: '-4px' ,fontSize:'12px',fontFamily: 'Poppins, sans-serif' }}>
-          <b>Description</b>
-        </p>
-      </div>
-          </div>
-        )}
-                      </div>
-                    </MDTypography>
-                  </div>
-  
-                  <div style={{ backgroundColor: 'white', padding: '10px', fontSize: '10px', boxShadow: '0px 4px 16px rgba(0, 0, 0, 0.1), 0px -4px 16px rgba(0, 0, 0, 0.1)', marginBottom: '10px',borderRadius:'15px' }}>
-                    <MDTypography variant="body2" color="textSecondary">
-                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
-                        <b><a href="salesOrderDetails.Html" style={{ fontFamily: 'Poppins, sans-serif' }}>KAPPOR'S</a></b>
-                        <b> <div className="badge bg-secondary mb-4">Status</div> </b> 
-                      </div>
-                      <div style={{ marginBottom: '10px', marginTop: '-17px' }}>
-                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>T R ISPAT & POWER</p> </b> 
-                      <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif',display:"flex" }}>TMT Bar 500 mts @ 40,500/EX   
-                      <ScrollLink  style={{marginLeft:'100px'}}>
-                        <Button
-              variant="contained"
-              color="primary"
-              size="small"
-              style={{
-                  marginTop: "0px",
-                  marginLeft: "10vh",
-                  marginRight: "10px",
-                  marginBottom: "5px",
-                  padding: "0%",             // Adjusted padding for smaller size
-                  minWidth: "30px",           // Adjusted minWidth to fit content
-                  height: "10px",             // Adjusted height to fit content
-                  borderRadius: "50%",        // Adjusted borderRadius for a rounded shape
-                  fontSize: "18px",           // Adjusted fontSize for a mini size          // Adjusted lineHeight to default
-                  color: "white",
-                }}
-                                            onClick={() => {
-                                              setExpanded16(!expanded16);
-                                              handleNestedExpandClick();
-                                            }}
-                                          >
-                                            {expanded16 ? '-' : '+'}
-                                          </Button>
-                                        </ScrollLink></p> </b> 
-  
-                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <b> <p style={{ marginBottom: '20px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>24-04-2024 | OUT/APR/49</p> </b> 
-                        <b>  <p style={{ marginBottom: '0', color: 'red', fontWeight: 'bold', fontSize: '12px' }}>390 mts | 15.25 lakhs  
-      
-                          </p> </b> 
-                        </div>
-                        {expanded16 && (
-          <div id="details">
-            {/* Add your additional details here */}
-            <div className="accordion_child_body" style={{ borderTop: '1px solid rgb(204, 204, 204)', display: 'block' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingLeft: '7px', paddingRight: '7px' ,paddingTop:'5px'}}>
-          <p style={{ margin: '0', fontSize:'12px' ,fontFamily: 'Poppins, sans-serif' }}><b>TMT Bars</b></p>
-          <p style={{ margin: '0',fontSize:'12px',fontFamily: 'Poppins, sans-serif'  }}><b>500 mts</b></p>
-          <p style={{ margin: '0' ,fontSize:'12px',fontFamily: 'Poppins, sans-serif' }}><b>40,500/Ex</b></p>
-        </div>
-        <p style={{ display: 'inline-block', padding: '5px 7px', marginBottom: '-4px' ,fontSize:'12px',fontFamily: 'Poppins, sans-serif' }}>
-          <b>Description</b>
-        </p>
-      </div>
-          </div>
-        )}
-                      </div>
-                    </MDTypography>
-                  </div>
-                  </div>
-  
-                </>
-              )}
-            />
-          </MDBox>
-      </div>
-  )}
-  
-        
-
+    ))}
         <MDBox mt={4.5}>
           <Grid container spacing={3}>
           </Grid>
