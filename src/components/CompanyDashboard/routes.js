@@ -14,6 +14,8 @@ import Purchase from "./layouts/purchase";
 import Transporting from "./layouts/transporting";
 import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
 import RegisterIcon from '@mui/icons-material/AppRegistration'
+import BilletsRegister from "./layouts/billets_register";
+import StructuresRegister from "./layouts/structures_register";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
@@ -22,6 +24,7 @@ import Dispatch from "./layouts/dispatch";
 import Billing from "./layouts/billing2";
 import Invoice from "./layouts/invoice";
 import TmtRegister from "./layouts/tmt_register";
+import PipesRegister from "./layouts/pipes_register";
 
 const routes = [
   {
@@ -143,6 +146,30 @@ const routes = [
     icon:  <RegisterIcon icon={faSignInAlt} />, 
     route: "/tmt_register",
     component: <TmtRegister />,
+  },
+  {
+    type: "collapse",
+    name: "Billets Register",
+    key: "billets_register",
+    icon:  <RegisterIcon icon={faSignInAlt} />, 
+    route: "/billets_register",
+    component: <BilletsRegister/>,
+  },
+  {
+    type: "collapse",
+    name: "Structures Register",
+    key: "structures_register",
+    icon:  <RegisterIcon icon={faSignInAlt} />, 
+    route: "/structures_register",
+    component: <StructuresRegister/>,
+  },
+  {
+    type: "collapse",
+    name: "Pipes Register",
+    key: "pipes_register",
+    icon:  <RegisterIcon icon={faSignInAlt} />, 
+    route: "/pipes_register",
+    component: <PipesRegister/>,
   },
   {
     type: "collapse",

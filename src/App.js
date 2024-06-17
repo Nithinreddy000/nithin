@@ -6,6 +6,7 @@ import Icon from "@mui/material/Icon";
 import rtlPlugin from "stylis-plugin-rtl";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
+import TmtRegister from "./components/CompanyDashboard/layouts/tmt_register";
 
 import LicenseValidation from './components/LicenseValidation/LicenseValidation';
 import CompanySelection from './components/CompanySelection/CompanySelection';
@@ -24,8 +25,8 @@ import themeDarkRTL from "./components/CompanyDashboard/assets/theme-dark/theme-
 import routes from "./components/CompanyDashboard/routes";
 import { MaterialUIControllerProvider, useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "./components/CompanyDashboard/context";
 
-import brandWhite from "../src/components/assets/favicon.ico";
-import brandDark from "../src/components/assets/favicon.ico";
+import brandWhite from "../src/components/assets/infinityX.png";
+import brandDark from "../src/components/assets/infinityX.png";
 import './styles1.css'
 
 
@@ -101,7 +102,6 @@ function DashboardContent() {
                         <Sidenav
                          color={sidenavColor}
                          brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
-                         brandName="Infinity X"
                          routes={routes}
                          onMouseEnter={handleOnMouseEnter}
                          onMouseLeave={handleOnMouseLeave}
@@ -125,11 +125,6 @@ function DashboardContent() {
                     <Sidenav
                         color={sidenavColor}
                         brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
-                        brandName={
-                            <span style={{ paddingLeft: '20px', fontSize: '20px' }}>
-                                Infinity X
-                            </span>
-                        }
                         routes={routes}
                         onMouseEnter={handleOnMouseEnter}
                         onMouseLeave={handleOnMouseLeave}
@@ -164,6 +159,8 @@ function App() {
                         </MaterialUIControllerProvider>
                     }
                 />
+                <Route path="/tmt-register" element={<TmtRegister />} />
+                <Route path="/tmt_register/:routeId" element={<TmtRegister />} />
             </Routes>
         </Router>
     );
