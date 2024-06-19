@@ -14,7 +14,7 @@ Coded by www.creative-tim.com
 */
 function collapseItem(theme, ownerState) {
   const { palette, transitions, breakpoints, boxShadows, borders, functions } = theme;
-  const { active, transparentSidenav, whiteSidenav, darkMode, sidenavColor } = ownerState;
+  const { active, transparentSidenav, whiteSidenav, darkMode, sidenavColor, nested } = ownerState;
 
   const { white, transparent, dark, grey, gradients } = palette;
   const { md } = boxShadows;
@@ -33,6 +33,7 @@ function collapseItem(theme, ownerState) {
     alignItems: "center",
     width: "100%",
     padding: `${pxToRem(8)} ${pxToRem(10)}`,
+    paddingLeft: nested ? pxToRem(30) : pxToRem(10),  // Add extra padding for nested items
     margin: `${pxToRem(1.5)} ${pxToRem(16)}`,
     borderRadius: borderRadius.md,
     cursor: "pointer",
@@ -63,34 +64,6 @@ function collapseItem(theme, ownerState) {
   };
 }
 
-function collapseIconBox(theme, ownerState) {
-  const { palette, transitions, borders, functions } = theme;
-  const { transparentSidenav, whiteSidenav, darkMode, active } = ownerState;
-
-  const { white, dark } = palette;
-  const { borderRadius } = borders;
-  const { pxToRem } = functions;
-
-  return {
-    minWidth: pxToRem(32),
-    minHeight: pxToRem(32),
-    color:
-      (transparentSidenav && !darkMode && !active) || (whiteSidenav && !active)
-        ? dark.main
-        : white.main,
-    borderRadius: borderRadius.md,
-    display: "grid",
-    placeItems: "center",
-    transition: transitions.create("margin", {
-      easing: transitions.easing.easeInOut,
-      duration: transitions.duration.standard,
-    }),
-
-    "& svg, svg g": {
-      color: transparentSidenav || whiteSidenav ? dark.main : white.main,
-    },
-  };
-}
 
 const collapseIcon = ({ palette: { white, gradients } }, { active }) => ({
   color: active ? white.main : gradients.dark.state,
@@ -98,13 +71,14 @@ const collapseIcon = ({ palette: { white, gradients } }, { active }) => ({
 
 function collapseText(theme, ownerState) {
   const { typography, transitions, breakpoints, functions } = theme;
-  const { miniSidenav, transparentSidenav, active } = ownerState;
+  const { miniSidenav, transparentSidenav, active, nested } = ownerState;
 
   const { size, fontWeightRegular, fontWeightLight } = typography;
   const { pxToRem } = functions;
 
   return {
     marginLeft: pxToRem(10),
+    marginLeft: nested ? pxToRem(30) : pxToRem(10),  // Adjust margin for nested items
 
     [breakpoints.up("xl")]: {
       opacity: miniSidenav || (miniSidenav && transparentSidenav) ? 0 : 1,

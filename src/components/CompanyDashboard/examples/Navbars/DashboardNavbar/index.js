@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -29,7 +29,8 @@ function DashboardNavbar({ absolute, light, isMini, onSearch }) {
   const [controller, dispatch] = useMaterialUIController();
   const { miniSidenav, transparentNavbar, fixedNavbar, openConfigurator, darkMode } = controller;
   const [openMenu, setOpenMenu] = useState(false);
-  const route = useLocation().pathname.split("/").slice(1);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (fixedNavbar) {
@@ -39,7 +40,7 @@ function DashboardNavbar({ absolute, light, isMini, onSearch }) {
     }
 
     function handleTransparentNavbar() {
-      setTransparentNavbar(dispatch, (fixedNavbar && window.scrollY === 0) || !fixedNavbar);
+      setTransparentNavbar(dispatch, (fixedNavbar && window.scrollY === 0) ||!fixedNavbar);
     }
 
     window.addEventListener("scroll", handleTransparentNavbar);
@@ -48,8 +49,8 @@ function DashboardNavbar({ absolute, light, isMini, onSearch }) {
     return () => window.removeEventListener("scroll", handleTransparentNavbar);
   }, [dispatch, fixedNavbar]);
 
-  const handleMiniSidenav = () => setMiniSidenav(dispatch, !miniSidenav);
-  const handleConfiguratorOpen = () => setOpenConfigurator(dispatch, !openConfigurator);
+  const handleMiniSidenav = () => setMiniSidenav(dispatch,!miniSidenav);
+  const handleConfiguratorOpen = () => setOpenConfigurator(dispatch,!openConfigurator);
   const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
   const handleCloseMenu = () => setOpenMenu(false);
 
@@ -73,33 +74,44 @@ function DashboardNavbar({ absolute, light, isMini, onSearch }) {
 
   const iconsStyle = ({ palette: { dark, white, text }, functions: { rgba } }) => ({
     color: () => {
-      let colorValue = light || darkMode ? white.main : dark.main;
-      if (transparentNavbar && !light) {
-        colorValue = darkMode ? rgba(text.main, 0.6) : text.main;
+      let colorValue = light || darkMode? white.main : dark.main;
+      if (transparentNavbar &&!light) {
+        colorValue = darkMode? rgba(text.main, 0.6) : text.main;
       }
       return colorValue;
     },
   });
 
+  const handleSearch = (value) => {
+    onSearch(value);
+  };
+
   return (
     <AppBar
-      position={absolute ? "absolute" : navbarType}
+      position={absolute? "absolute" : navbarType}
       color="inherit"
       sx={(theme) => navbar(theme, { transparentNavbar, absolute, light, darkMode })}
     >
       <Toolbar sx={(theme) => navbarContainer(theme)}>
         <MDBox color="inherit" mb={{ xs: 1, md: 0 }} sx={(theme) => navbarRow(theme, { isMini })}>
-          <Breadcrumbs icon="home" title={route[route.length - 1]} route={route} light={light} />
+          {/* Modified Breadcrumbs component */}
+          <Breadcrumbs
+            icon="home"
+            title={location.pathname.split("/").pop()} // Use the last part of the path as the title
+            route={location.pathname.split("/").slice(1)} // Pass the route parts excluding the first '/'
+            light={light}
+            onClick={() => navigate('/dashboard')} // Navigate to the dashboard
+          />
         </MDBox>
-        {isMini ? null : (
+        {!isMini && (
           <MDBox sx={(theme) => navbarRow(theme, { isMini })}>
             <MDBox pr={1}>
               <MDInput
                 label="Search here"
-                onChange={(e) => onSearch(e.target.value)}
+                onChange={(e) => handleSearch(e.target.value)}
               />
             </MDBox>
-            <MDBox color={light ? "white" : "inherit"}>
+            <MDBox color={light? "white" : "inherit"}>
               <IconButton
                 size="small"
                 disableRipple
@@ -108,7 +120,7 @@ function DashboardNavbar({ absolute, light, isMini, onSearch }) {
                 onClick={handleMiniSidenav}
               >
                 <Icon sx={iconsStyle} fontSize="medium">
-                  {miniSidenav ? "menu_open" : "menu"}
+                  {miniSidenav? "menu_open" : "menu"}
                 </Icon>
               </IconButton>
               <IconButton
@@ -151,7 +163,7 @@ DashboardNavbar.propTypes = {
   absolute: PropTypes.bool,
   light: PropTypes.bool,
   isMini: PropTypes.bool,
-  onSearch: PropTypes.func.isRequired, // Add this line
+  onSearch: PropTypes.func.isRequired,
 };
 
 export default DashboardNavbar;

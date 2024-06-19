@@ -1,11 +1,14 @@
+/* Custom scrollbar for thumb */
+*::-webkit-scrollbar-thumb {
+  width: 6px; /* Width of the scrollbar thumb */
+  height: 5px; /* Height of the scrollbar thumb */
+  border-radius: 30px; /* Rounded corners of the scrollbar thumb */
+  background: #888; /* Color of the scrollbar thumb */
+}
+
 /* Hide scrollbar for Chrome, Safari and Opera */
 *::-webkit-scrollbar {
-    display: none;
-  }
-  
-  /* Hide scrollbar for IE, Edge and Firefox */
-  * {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-  }
-  
+  width: 6px; /* Width of the scrollbar track */
+  height: 5px; /* Height of the scrollbar track */
+  background: transparent; /* Transparent background for the scrollbar track */
+}

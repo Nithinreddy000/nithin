@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom"; // Import useNavigate
+import { useLocation, useNavigate } from "react-router-dom"
 import PropTypes from "prop-types";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -30,8 +30,9 @@ function DashboardNavbarRegister({ absolute, light, isMini, onSearch }) {
   const [controller, dispatch] = useMaterialUIController();
   const { miniSidenav, transparentNavbar, fixedNavbar, openConfigurator, darkMode } = controller;
   const [openMenu, setOpenMenu] = useState(false);
-  const route = useLocation().pathname.split("/").slice(1);
-  const navigate = useNavigate(); // Create navigate function
+  const location = useLocation();
+  const navigate = useNavigate(); 
+  const [activeSection, setActiveSection] = useState('');
 
   useEffect(() => {
     if (fixedNavbar) {
@@ -50,6 +51,13 @@ function DashboardNavbarRegister({ absolute, light, isMini, onSearch }) {
     return () => window.removeEventListener("scroll", handleTransparentNavbar);
   }, [dispatch, fixedNavbar]);
 
+
+  const handleSectionClick = (route) => {
+    navigate(route); // Navigate to the specified route
+    setActiveSection(route); // Update active section
+  };
+
+  
   const handleMiniSidenav = () => setMiniSidenav(dispatch, !miniSidenav);
   const handleConfiguratorOpen = () => setOpenConfigurator(dispatch, !openConfigurator);
   const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
@@ -106,8 +114,13 @@ function DashboardNavbarRegister({ absolute, light, isMini, onSearch }) {
     >
       <Toolbar sx={(theme) => navbarContainer(theme)}>
         <MDBox color="inherit" mb={{ xs: 1, md: 0 }} sx={(theme) => navbarRow(theme, { isMini })}>
-          <Breadcrumbs icon="home" title={route[route.length - 1]} route={route} light={light} />
-        </MDBox>
+        <Breadcrumbs
+            icon="home"
+            title={location.pathname.split("/").pop()} // Use the last part of the path as the title
+            route={location.pathname.split("/").slice(1)} // Pass the route parts excluding the first '/'
+            light={light}
+            onClick={() => navigate('/dashboard')} // Navigate to the dashboard
+          />        </MDBox>
         <MDBox sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
           {/* Button Container */}
           <div style={{
