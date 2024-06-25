@@ -120,7 +120,7 @@ function Dashboard() {
                             </div>
                             <br />
                   <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '1px' ,
-                    fontSize: window.innerWidth == 320 ? "8px" : window.innerWidth == 1024 ? "16px" : window.innerWidth == 768 ? "11px" : window.innerWidth == 360 ? "10px" : window.innerWidth == 390 ? "11px" : window.innerWidth == 375 ? "10px" : window.innerWidth == 344 ?"9px":"12px"}}>
+                    fontSize: (window.innerWidth >= 375 && window.innerWidth <= 424) ? "10px" : window.innerWidth == 320 ? "8px" : window.innerWidth == 1024 ? "16px" : window.innerWidth == 768 ? "11px" : window.innerWidth == 360 ? "10px" : window.innerWidth == 390 ? "11px" : window.innerWidth == 375 ? "10px" : window.innerWidth == 344 ?"9px":"12px"}}>
                     <div style={{ textAlign: 'left', flex: 1 }}>
                       <div>Quantity&nbsp;&nbsp;</div>
                       <div>400</div>
@@ -142,9 +142,9 @@ function Dashboard() {
                                 color="primary"
                                 size="small"
                                 startIcon={<RegisterIcon />}
-                                style={{ marginLeft: window.innerWidth >= 2561 ? "240px" :  window.innerWidth == 2560 ? "180px" : window.innerWidth == 320 ? "12px" : window.innerWidth == 1024 ? "30px" :  window.innerWidth == 360 ? "13px" :  window.innerWidth == 412 ? "15px" :  window.innerWidth == 390 ? "13px" : window.innerWidth == 414 ? "17px" : window.innerWidth == 375 ? "21px" : window.innerWidth == 344 ? "10px" : "23px",
+                                style={{ marginLeft: (window.innerWidth >= 375 && window.innerWidth <= 424) ? "21px" : window.innerWidth >= 2561 ? "240px" :  window.innerWidth == 2560 ? "180px" : window.innerWidth == 320 ? "12px" : window.innerWidth == 1024 ? "30px" :  window.innerWidth == 360 ? "13px" :  window.innerWidth == 412 ? "15px" :  window.innerWidth == 390 ? "13px" : window.innerWidth == 414 ? "17px" : window.innerWidth == 375 ? "21px" : window.innerWidth == 344 ? "10px" : "23px",
                                    padding: '2px 6px', 
-                                   fontSize:window.innerWidth == 320 ? "9px" : window.innerWidth == 360 ? "10px" : window.innerWidth == 375 ? "11px" : window.innerWidth == 344 ?"10px":"12px", 
+                                   fontSize: (window.innerWidth >= 375 && window.innerWidth <= 424) ? "11px" : window.innerWidth == 320 ? "9px" : window.innerWidth == 360 ? "10px" : window.innerWidth == 375 ? "11px" : window.innerWidth == 344 ?"10px":"12px", 
                                    color: 'white' }}
                                 onClick={() => navigate('/tmt_register')} 
                               >
@@ -185,7 +185,7 @@ function Dashboard() {
                             </div>
                             <br />
                             <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '1px' ,
-                    fontSize: window.innerWidth == 320 ? "8px" : window.innerWidth == 1024 ? "16px" : window.innerWidth == 768 ? "11px" : window.innerWidth == 360 ? "10px" : window.innerWidth == 390 ? "11px" : window.innerWidth == 375 ? "10px" : window.innerWidth == 344 ?"9px":"12px"}}>
+                    fontSize: (window.innerWidth >= 375 && window.innerWidth <= 424) ? "10px" : window.innerWidth == 320 ? "8px" : window.innerWidth == 1024 ? "16px" : window.innerWidth == 768 ? "11px" : window.innerWidth == 360 ? "10px" : window.innerWidth == 390 ? "11px" : window.innerWidth == 375 ? "10px" : window.innerWidth == 344 ?"9px":"12px"}}>
                     <div style={{ textAlign: 'left', flex: 1 }}>
                       <div>Quantity&nbsp;&nbsp;</div>
                       <div>400</div>
@@ -207,9 +207,9 @@ function Dashboard() {
                                 color="primary"
                                 size="small"
                                 startIcon={<RegisterIcon />}
-                                style={{ marginLeft: window.innerWidth >= 2561 ? "240px" :  window.innerWidth == 2560 ? "180px" : window.innerWidth == 320 ? "12px" : window.innerWidth == 1024 ? "30px" :  window.innerWidth == 360 ? "13px" :  window.innerWidth == 412 ? "15px" :  window.innerWidth == 390 ? "13px" : window.innerWidth == 414 ? "17px" : window.innerWidth == 375 ? "21px" : window.innerWidth == 344 ? "10px" : "23px",
+                                style={{ marginLeft: (window.innerWidth >= 375 && window.innerWidth <= 424) ? "21px" : window.innerWidth >= 2561 ? "240px" :  window.innerWidth == 2560 ? "180px" : window.innerWidth == 320 ? "12px" : window.innerWidth == 1024 ? "30px" :  window.innerWidth == 360 ? "13px" :  window.innerWidth == 412 ? "15px" :  window.innerWidth == 390 ? "13px" : window.innerWidth == 414 ? "17px" : window.innerWidth == 375 ? "21px" : window.innerWidth == 344 ? "10px" : "23px",
                                    padding: '2px 6px', 
-                                   fontSize:window.innerWidth == 320 ? "9px" : window.innerWidth == 360 ? "10px" : window.innerWidth == 375 ? "11px" : window.innerWidth == 344 ?"10px":"12px", 
+                                   fontSize: (window.innerWidth >= 375 && window.innerWidth <= 424) ? "11px" : window.innerWidth == 320 ? "9px" : window.innerWidth == 360 ? "10px" : window.innerWidth == 375 ? "11px" : window.innerWidth == 344 ?"10px":"12px", 
                                    color: 'white' }}
                                 onClick={() => navigate('/tmt_register')} 
                               >
@@ -250,7 +250,7 @@ function Dashboard() {
                             </div>
                             <br />
                             <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '1px' ,
-                    fontSize: window.innerWidth == 320 ? "8px" : window.innerWidth == 1024 ? "16px" : window.innerWidth == 768 ? "11px" : window.innerWidth == 360 ? "10px" : window.innerWidth == 390 ? "11px" : window.innerWidth == 375 ? "10px" : window.innerWidth == 344 ?"9px":"12px"}}>
+                    fontSize: (window.innerWidth >= 375 && window.innerWidth <= 424) ? "10px" : window.innerWidth == 320 ? "8px" : window.innerWidth == 1024 ? "16px" : window.innerWidth == 768 ? "11px" : window.innerWidth == 360 ? "10px" : window.innerWidth == 390 ? "11px" : window.innerWidth == 375 ? "10px" : window.innerWidth == 344 ?"9px":"12px"}}>
                     <div style={{ textAlign: 'left', flex: 1 }}>
                       <div>Quantity&nbsp;&nbsp;</div>
                       <div>400</div>
@@ -272,9 +272,9 @@ function Dashboard() {
                                 color="primary"
                                 size="small"
                                 startIcon={<RegisterIcon />}
-                                style={{ marginLeft: window.innerWidth >= 2561 ? "240px" :  window.innerWidth == 2560 ? "180px" : window.innerWidth == 320 ? "12px" : window.innerWidth == 1024 ? "30px" :  window.innerWidth == 360 ? "13px" :  window.innerWidth == 412 ? "15px" :  window.innerWidth == 390 ? "13px" : window.innerWidth == 414 ? "17px" : window.innerWidth == 375 ? "21px" : window.innerWidth == 344 ? "10px" : "23px",
+                                style={{ marginLeft: (window.innerWidth >= 375 && window.innerWidth <= 424) ? "21px" : window.innerWidth >= 2561 ? "240px" :  window.innerWidth == 2560 ? "180px" : window.innerWidth == 320 ? "12px" : window.innerWidth == 1024 ? "30px" :  window.innerWidth == 360 ? "13px" :  window.innerWidth == 412 ? "15px" :  window.innerWidth == 390 ? "13px" : window.innerWidth == 414 ? "17px" : window.innerWidth == 375 ? "21px" : window.innerWidth == 344 ? "10px" : "23px",
                                    padding: '2px 6px', 
-                                   fontSize:window.innerWidth == 320 ? "9px" : window.innerWidth == 360 ? "10px" : window.innerWidth == 375 ? "11px" : window.innerWidth == 344 ?"10px":"12px", 
+                                   fontSize: (window.innerWidth >= 375 && window.innerWidth <= 424) ? "11px" : window.innerWidth == 320 ? "9px" : window.innerWidth == 360 ? "10px" : window.innerWidth == 375 ? "11px" : window.innerWidth == 344 ?"10px":"12px", 
                                    color: 'white' }}
                                 onClick={() => navigate('/tmt_register')} 
                               >
@@ -315,7 +315,7 @@ function Dashboard() {
                             </div>
                             <br />
                             <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '1px' ,
-                    fontSize: window.innerWidth == 320 ? "8px" : window.innerWidth == 1024 ? "16px" : window.innerWidth == 768 ? "11px" : window.innerWidth == 360 ? "10px" : window.innerWidth == 390 ? "11px" : window.innerWidth == 375 ? "10px" : window.innerWidth == 344 ?"9px":"12px"}}>
+                    fontSize: (window.innerWidth >= 375 && window.innerWidth <= 424) ? "10px" : window.innerWidth == 320 ? "8px" : window.innerWidth == 1024 ? "16px" : window.innerWidth == 768 ? "11px" : window.innerWidth == 360 ? "10px" : window.innerWidth == 390 ? "11px" : window.innerWidth == 375 ? "10px" : window.innerWidth == 344 ?"9px":"12px"}}>
                     <div style={{ textAlign: 'left', flex: 1 }}>
                       <div>Quantity&nbsp;&nbsp;</div>
                       <div>400</div>
@@ -337,9 +337,9 @@ function Dashboard() {
                                 color="primary"
                                 size="small"
                                 startIcon={<RegisterIcon />}
-                                style={{ marginLeft: window.innerWidth >= 2561 ? "240px" :  window.innerWidth == 2560 ? "180px" : window.innerWidth == 320 ? "12px" : window.innerWidth == 1024 ? "30px" :  window.innerWidth == 360 ? "13px" :  window.innerWidth == 412 ? "15px" :  window.innerWidth == 390 ? "13px" : window.innerWidth == 414 ? "17px" : window.innerWidth == 375 ? "21px" : window.innerWidth == 344 ? "10px" : "23px",
+                                style={{ marginLeft: (window.innerWidth >= 375 && window.innerWidth <= 424) ? "21px" : window.innerWidth >= 2561 ? "240px" :  window.innerWidth == 2560 ? "180px" : window.innerWidth == 320 ? "12px" : window.innerWidth == 1024 ? "30px" :  window.innerWidth == 360 ? "13px" :  window.innerWidth == 412 ? "15px" :  window.innerWidth == 390 ? "13px" : window.innerWidth == 414 ? "17px" : window.innerWidth == 375 ? "21px" : window.innerWidth == 344 ? "10px" : "23px",
                                    padding: '2px 6px', 
-                                   fontSize:window.innerWidth == 320 ? "9px" : window.innerWidth == 360 ? "10px" : window.innerWidth == 375 ? "11px" : window.innerWidth == 344 ?"10px":"12px", 
+                                   fontSize: (window.innerWidth >= 375 && window.innerWidth <= 424) ? "11px" : window.innerWidth == 320 ? "9px" : window.innerWidth == 360 ? "10px" : window.innerWidth == 375 ? "11px" : window.innerWidth == 344 ?"10px":"12px", 
                                    color: 'white' }}
                                 onClick={() => navigate('/tmt_register')} 
                               >
@@ -380,7 +380,7 @@ function Dashboard() {
                   </div>
                   <br />
                   <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '1px' ,
-                    fontSize: window.innerWidth == 320 ? "8px" : window.innerWidth == 1024 ? "16px" : window.innerWidth == 768 ? "11px" : window.innerWidth == 360 ? "10px" : window.innerWidth == 390 ? "11px" : window.innerWidth == 375 ? "10px" : window.innerWidth == 344 ?"9px":"12px"}}>
+                    fontSize: (window.innerWidth >= 375 && window.innerWidth <= 424) ? "10px" : window.innerWidth == 320 ? "8px" : window.innerWidth == 1024 ? "16px" : window.innerWidth == 768 ? "11px" : window.innerWidth == 360 ? "10px" : window.innerWidth == 390 ? "11px" : window.innerWidth == 375 ? "10px" : window.innerWidth == 344 ?"9px":"12px"}}>
                     <div style={{ textAlign: 'left', flex: 1 }}>
                       <div>Quantity&nbsp;&nbsp;</div>
                       <div>400</div>
@@ -402,9 +402,9 @@ function Dashboard() {
                                 color="primary"
                                 size="small"
                                 startIcon={<RegisterIcon />}
-                                style={{ marginLeft: window.innerWidth >= 2561 ? "240px" :  window.innerWidth == 2560 ? "180px" : window.innerWidth == 320 ? "12px" : window.innerWidth == 1024 ? "30px" :  window.innerWidth == 360 ? "13px" :  window.innerWidth == 412 ? "15px" :  window.innerWidth == 390 ? "13px" : window.innerWidth == 414 ? "17px" : window.innerWidth == 375 ? "21px" : window.innerWidth == 344 ? "10px" : "23px",
+                                style={{ marginLeft: (window.innerWidth >= 375 && window.innerWidth <= 424) ? "21px" : window.innerWidth >= 2561 ? "240px" :  window.innerWidth == 2560 ? "180px" : window.innerWidth == 320 ? "12px" : window.innerWidth == 1024 ? "30px" :  window.innerWidth == 360 ? "13px" :  window.innerWidth == 412 ? "15px" :  window.innerWidth == 390 ? "13px" : window.innerWidth == 414 ? "17px" : window.innerWidth == 375 ? "21px" : window.innerWidth == 344 ? "10px" : "23px",
                                    padding: '2px 6px', 
-                                   fontSize:window.innerWidth == 320 ? "9px" : window.innerWidth == 360 ? "10px" : window.innerWidth == 375 ? "11px" : window.innerWidth == 344 ?"10px":"12px", 
+                                   fontSize: (window.innerWidth >= 375 && window.innerWidth <= 424) ? "11px" : window.innerWidth == 320 ? "9px" : window.innerWidth == 360 ? "10px" : window.innerWidth == 375 ? "11px" : window.innerWidth == 344 ?"10px":"12px", 
                                    color: 'white' }}
                                 onClick={() => navigate('/tmt_register')} 
                               >
@@ -450,4 +450,3 @@ function Dashboard() {
 }
 
 export default Dashboard;
-
