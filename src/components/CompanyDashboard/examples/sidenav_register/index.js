@@ -104,7 +104,20 @@ function SidenavRegister({ brandName, routes, onItemClick, onItemClick2, ...rest
         <div style={{ position: 'relative' }}>
           <div style={{
             position: 'absolute',
-            left: '5.5vh',
+            left: (window.innerWidth === 1024 && window.innerHeight === 1366) // iPad Pro Portrait
+            || (window.innerWidth === 1366 && window.innerHeight === 1024) // iPad Pro Landscape
+            ? '3vh'
+            : window.innerWidth === 430
+            ? '4vh' 
+            : window.innerWidth === 768
+            ? '6vh' 
+            : window.innerWidth === 1024
+            ? '6vh' 
+            : window.innerWidth === 2560 
+            ? '2.5vh' 
+            : window.innerWidth > 767 && window.innerWidth < 1366 
+            ? '3vh' 
+            : '5.5vh',
             top: 6,
             bottom: 0,
             width: '2px',
@@ -122,7 +135,20 @@ function SidenavRegister({ brandName, routes, onItemClick, onItemClick2, ...rest
                   display: 'block',
                   textAlign: 'left',
                   paddingLeft: '2vh',
-                  marginLeft:'5vh',
+                  marginLeft : (window.innerWidth === 1024 && window.innerHeight === 1366) // iPad Pro Portrait
+                  || (window.innerWidth === 1366 && window.innerHeight === 1024) // iPad Pro Landscape
+                  ? '2vh'
+                  : window.innerWidth === 430
+                  ? '4vh'
+                  : window.innerWidth === 768
+                  ? '6vh'
+                  : window.innerWidth === 1024
+                  ? '6vh'
+                  : window.innerWidth === 2560
+                  ? '2vh'
+                  : window.innerWidth > 767 && window.innerWidth < 1366
+                  ? '2.5vh'
+                  : '5vh',
                   paddingBottom: '1.5vh',
                   paddingTop: '1vh',
                   fontWeight: '300',

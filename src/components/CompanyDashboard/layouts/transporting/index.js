@@ -68,7 +68,7 @@ function Transporting() {
     <DashboardLayout>
       <DashboardNavbar onSearch={handleSearch} />
       <MDBox py={3} >
-        <h3 style={{paddingLeft: '10px',fontFamily: 'Poppins, sans-serif',paddingTop:'0%' ,marginTop:'0%'}}>INWARD</h3>
+        <h3 style={{paddingLeft: '10px',fontFamily: 'Poppins, sans-serif',paddingTop:'0%' ,marginTop:'0%'}}>TRANSPORTING</h3>
         <div className="swiper-container">
         <Swiper
         spaceBetween={16}

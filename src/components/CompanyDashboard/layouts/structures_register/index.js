@@ -14,7 +14,7 @@ import { infinity } from 'ldrs';
 
 infinity.register();
 
-function TmtRegister() {
+function StructuresRegister() {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [highlightedId, setHighlightedId] = useState("");
@@ -95,7 +95,6 @@ function TmtRegister() {
       )}
       <DashboardNavbarRegister onSearch={handleSearch} />
       <MDBox py={3}>
-        <h3 style={{ paddingLeft: '10px', fontFamily: 'Poppins, sans-serif', paddingTop: '0%', marginTop: '0%' }}>Register</h3>
         <SidenavRegister
           routes={Tmtroutes}
           onItemClick={(id) => {
@@ -120,12 +119,12 @@ function TmtRegister() {
               {isHeader && (
                 <h3
                   id={detail.id}
-                  style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'left', height: 'auto', paddingBottom: '0%', paddingTop: '1vh', marginRight: '39vh' }}>
+                  style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'left', height: 'auto', paddingBottom: '0%', paddingTop: '1vh', marginRight: '30vh',fontSize:'25px' }}>
                   {detail.Headers}
                 </h3>
               )}
               <div ref={sectionRefs.current[detail.id2]} id={detail.id} className="card-container"
- style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: 'auto', paddingBottom: '0%', paddingTop: '4vh', marginRight: '11vh' }}>
+ style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: 'auto', paddingBottom: '0%', paddingTop: '4vh', marginRight: '8vh' }}>
                 <div className={highlightedId === detail.id2 ? 'highlighted' : ''}>
                   <MDBox mb={1.5} style={{ cursor: "pointer" }}>
                     <Stats_card_for_register
@@ -142,7 +141,7 @@ function TmtRegister() {
                               <b><p style={{ marginBottom: '10px', fontSize: '12px', fontFamily: 'Poppins, sans-serif', display: "flex" }}>{detail.product}</p></b>
                               <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '-10px' }}>
                                 <b><p style={{ marginBottom: '0px', fontSize: '12px', fontFamily: 'Poppins, sans-serif' }}>{detail.orderDate}</p></b>
-                                <b><p style={{ marginBottom: '0px', color: 'red', fontWeight: 'bold', fontSize: '12px' }}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{detail.quantity}</p></b>
+                                <b><p style={{ marginBottom: '0px', color: 'red', fontWeight: 'bold', fontSize: '12px' }}>&nbsp;&nbsp;{detail.quantity}</p></b>
                               </div>
                             </div>
                           </MDTypography>
@@ -174,9 +173,63 @@ function TmtRegister() {
           align-items: center;
           z-index: 9999;
         }
+     @media (max-width: 344px) {
+          h3 {
+            margin-right: 10vh !important;
+          }
+          .card-container {
+            margin-right: 6vh !important;
+          }
+          h3#sanjay,
+          h3#sanjay2,
+          h3#sanjay3,
+          h3#sanjay4 {
+            margin-right: 20vh !important; /* Adjust for specific headers */
+          }
+        }
+           @media (max-width:1366px){
+           h3#sanjay,
+          h3#sanjay2,
+          h3#sanjay3,
+          h3#sanjay4 {
+            margin-right: 15vh !important; /* Adjust for specific headers */
+          }
+          }
+           @media (min-width:375px){
+           h3#sanjay,
+          h3#sanjay2,
+          h3#sanjay3,
+          h3#sanjay4 {
+            margin-right: 25vh !important; /* Adjust for specific headers */
+          }
+          }
+            @media (min-width:425px){
+           h3#sanjay,
+          h3#sanjay2,
+          h3#sanjay3,
+          h3#sanjay4 {
+            margin-right: 35vh !important; /* Adjust for specific headers */
+          }
+          }
+          @media (min-width:1440px){
+           h3#sanjay,
+          h3#sanjay2,
+          h3#sanjay3,
+          h3#sanjay4 {
+            margin-right: 25vh !important; /* Adjust for specific headers */
+          }
+          }
+           @media (min-width:2560px){
+           h3#sanjay,
+          h3#sanjay2,
+          h3#sanjay3,
+          h3#sanjay4 {
+            margin-right: 10vh !important; /* Adjust for specific headers */
+          }
+          }
       `}</style>
     </DashboardLayout>
   );
 }
 
-export default TmtRegister;
+export default StructuresRegister;

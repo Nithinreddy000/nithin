@@ -1,6 +1,33 @@
-/* Add this to your CSS file */
 .highlighted {
-    box-shadow: 0 8px 16px 16px rgba(0,0,0,0.2); /* Example shadow */
-    transition: box-shadow 0.3s ease-in-out;
+  position: relative;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.highlighted::before {
+  content: "";
+  position: absolute;
+  top: -10px; /* Adjust these values as needed */
+  left: 37px; /* Default value for large devices */
+  right: -10px; /* Adjust these values as needed */
+  bottom: 15px; /* Adjust these values as needed */
+  box-shadow: 0 8px 25px 25px rgba(0,0,0,0.2); /* Example shadow */
+  border-radius: inherit; /* Optional: Matches the border radius of the parent element */
+  z-index: -1; /* Ensures the shadow is behind the content */
+}
+
+/* Media query for all mobile devices */
+@media (max-width: 767px) {
+  .highlighted::before {
+    left: 7px; /* Value for mobile devices */
   }
-  
+}
+@media (min-width: 768px) {
+  .highlighted::before {
+    right: 10px; /* Value for mobile devices */
+  }
+}
+@media (max-width: 1366px) {
+  .highlighted::before {
+    left: 67px; /* Adjusted value for iPad Pro */
+  }
+}

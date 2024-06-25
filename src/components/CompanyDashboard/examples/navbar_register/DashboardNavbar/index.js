@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -31,7 +31,7 @@ function DashboardNavbarRegister({ absolute, light, isMini, onSearch }) {
   const { miniSidenav, transparentNavbar, fixedNavbar, openConfigurator, darkMode } = controller;
   const [openMenu, setOpenMenu] = useState(false);
   const location = useLocation();
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const [activeSection, setActiveSection] = useState('');
 
   useEffect(() => {
@@ -51,13 +51,11 @@ function DashboardNavbarRegister({ absolute, light, isMini, onSearch }) {
     return () => window.removeEventListener("scroll", handleTransparentNavbar);
   }, [dispatch, fixedNavbar]);
 
-
   const handleSectionClick = (route) => {
     navigate(route); // Navigate to the specified route
     setActiveSection(route); // Update active section
   };
 
-  
   const handleMiniSidenav = () => setMiniSidenav(dispatch, !miniSidenav);
   const handleConfiguratorOpen = () => setOpenConfigurator(dispatch, !openConfigurator);
   const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
@@ -113,67 +111,30 @@ function DashboardNavbarRegister({ absolute, light, isMini, onSearch }) {
       sx={(theme) => navbar(theme, { transparentNavbar, absolute, light, darkMode })}
     >
       <Toolbar sx={(theme) => navbarContainer(theme)}>
-        <MDBox color="inherit" mb={{ xs: 1, md: 0 }} sx={(theme) => navbarRow(theme, { isMini })}>
-        <Breadcrumbs
+        <MDBox 
+          color="inherit" 
+          mb={{ xs: 1, md: 0 }} 
+          sx={(theme) => ({
+            ...navbarRow(theme, { isMini }),
+            padding: '10px', // Increase padding
+            fontSize: '1.25rem', // Increase font size
+            '& .MuiTypography-root': {
+              fontSize: '1rem', // Increase font size for breadcrumb text
+            },
+            '& .MuiSvgIcon-root': {
+              fontSize: '1.5rem', // Increase font size for icons
+            },
+          })}
+        >
+          <Breadcrumbs
             icon="home"
-            title={location.pathname.split("/").pop()} // Use the last part of the path as the title
-            route={location.pathname.split("/").slice(1)} // Pass the route parts excluding the first '/'
+            title="Dashboard" // Static title
+            route={[]} // Empty route array because we're not using location.pathname
             light={light}
-            onClick={() => navigate('/dashboard')} // Navigate to the dashboard
-          />        </MDBox>
-        <MDBox sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
-          {/* Button Container */}
-          <div style={{
-            display: 'flex',
-            backgroundColor:"#7b809a",
-            width: '380px',
-            height: '40px',
-            alignItems: 'center',
-            justifyContent: 'space-around',
-            borderRadius: '10px'
-          }}>
-            <IconButton
-              className="button"
-              style={buttonStyle}
-              onMouseOver={(e) => e.currentTarget.style.transform = 'translateY(-3px)'}
-              onMouseOut={(e) => e.currentTarget.style.transform = 'translateY(0px)'}
-              onClick={() => navigate("/tmt_register")} // Redirect on click
-            >
-              <Icon style={{ fontSize: '20px' }}>bar_chart</Icon>
-              <h4 style={{fontFamily:'arail',fontSize:'15px',paddingTop:'7px'}}>Tmt&nbsp;&nbsp;Bars</h4>
-            </IconButton>
-            <IconButton
-              className="button"
-              style={buttonStyle}
-              onMouseOver={(e) => e.currentTarget.style.transform = 'translateY(-3px)'}
-              onMouseOut={(e) => e.currentTarget.style.transform = 'translateY(0px)'}
-              onClick={() => navigate("/billets_register")} // Redirect on click
-            >
-              <Icon style={{ fontSize: '20px' }}>layers</Icon>
-              <h4 style={{fontFamily:'arail',fontSize:'15px',paddingTop:'7px'}}>Billets</h4>
-            </IconButton>
-            <IconButton
-              className="button"
-              style={buttonStyle}
-              onMouseOver={(e) => e.currentTarget.style.transform = 'translateY(-3px)'}
-              onMouseOut={(e) => e.currentTarget.style.transform = 'translateY(0px)'}
-              onClick={() => navigate("/structures_register")} // Redirect on click
-            >
-              <Icon style={{ fontSize: '20px' }}>building</Icon>
-              <h4 style={{fontFamily:'arail',fontSize:'15px',paddingTop:'7px'}}>Structures</h4>
-            </IconButton>
-            <IconButton
-              className="button"
-              style={buttonStyle}
-              onMouseOver={(e) => e.currentTarget.style.transform = 'translateY(-3px)'}
-              onMouseOut={(e) => e.currentTarget.style.transform = 'translateY(0px)'}
-              onClick={() => navigate("/pipes_register")} // Redirect on click
-            >
-              <Icon style={{ fontSize: '20px' }}>plumbing</Icon>
-              <h4 style={{fontFamily:'arail',fontSize:'15px',paddingTop:'7px'}}>Pipes</h4>
-            </IconButton>
-          </div>
+          />
         </MDBox>
+
+
         {isMini ? null : (
           <MDBox sx={(theme) => navbarRow(theme, { isMini })}>
             <MDBox pr={1}>
@@ -219,7 +180,70 @@ function DashboardNavbarRegister({ absolute, light, isMini, onSearch }) {
             </MDBox>
           </MDBox>
         )}
+
       </Toolbar>
+      <MDBox sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center' ,paddingTop: { xs: '5vh', md: '2vh' }}}>
+          {/* Button Container */}
+          <div className="button-container">
+            <IconButton
+              className="button"
+              style={buttonStyle}
+              onMouseOver={(e) => e.currentTarget.style.transform = 'translateY(-3px)'}
+              onMouseOut={(e) => e.currentTarget.style.transform = 'translateY(0px)'}
+              onClick={() => navigate("/tmt_register")} // Redirect on click
+            >
+              <Icon style={{ fontSize: '20px' }}>bar_chart</Icon>
+              <h4 style={{fontFamily:'Arial',fontSize:'15px',paddingTop:'7px'}}>Tmt&nbsp;&nbsp;Bars</h4>
+            </IconButton>
+            <IconButton
+              className="button"
+              style={buttonStyle}
+              onMouseOver={(e) => e.currentTarget.style.transform = 'translateY(-3px)'}
+              onMouseOut={(e) => e.currentTarget.style.transform = 'translateY(0px)'}
+              onClick={() => navigate("/billets_register")} // Redirect on click
+            >
+              <Icon style={{ fontSize: '20px' }}>layers</Icon>
+              <h4 style={{fontFamily:'Arial',fontSize:'15px',paddingTop:'7px'}}>Billets</h4>
+            </IconButton>
+            <IconButton
+              className="button"
+              style={buttonStyle}
+              onMouseOver={(e) => e.currentTarget.style.transform = 'translateY(-3px)'}
+              onMouseOut={(e) => e.currentTarget.style.transform = 'translateY(0px)'}
+              onClick={() => navigate("/structures_register")} // Redirect on click
+            >
+              <Icon style={{ fontSize: '20px' }}>building</Icon>
+              <h4 style={{fontFamily:'Arial',fontSize:'15px',paddingTop:'7px'}}>Structures</h4>
+            </IconButton>
+            <IconButton
+              className="button"
+              style={buttonStyle}
+              onMouseOver={(e) => e.currentTarget.style.transform = 'translateY(-3px)'}
+              onMouseOut={(e) => e.currentTarget.style.transform = 'translateY(0px)'}
+              onClick={() => navigate("/pipes_register")} // Redirect on click
+            >
+              <Icon style={{ fontSize: '20px' }}>plumbing</Icon>
+              <h4 style={{fontFamily:'Arial',fontSize:'15px',paddingTop:'7px'}}>Pipes</h4>
+            </IconButton>
+          </div>
+        </MDBox>
+      <style jsx>{`
+        .button-container {
+          display: flex;
+          background-color: #7b809a;
+          width: 350px;
+          height: 40px;
+          align-items: center;
+          justify-content: space-around;
+          border-radius: 10px;
+        }
+
+        @media (max-width: 344px) {
+          .button-container {
+            width: 315px;
+          }
+        }
+      `}</style>
     </AppBar>
   );
 }
@@ -234,7 +258,7 @@ DashboardNavbarRegister.propTypes = {
   absolute: PropTypes.bool,
   light: PropTypes.bool,
   isMini: PropTypes.bool,
-  onSearch: PropTypes.func.isRequired, // Add this line
+  onSearch: PropTypes.func.isRequired,
 };
 
 export default DashboardNavbarRegister;

@@ -27,64 +27,35 @@ function Stats_card_for_register({ color, title, count, percentage, icon, detail
   const isiPhone678 = useMediaQuery('(min-width: 375px) and (max-width: 425px)');
   const isiPhone12 = useMediaQuery('(min-width: 390px) and (max-width: 428px)');
   const istablet = useMediaQuery('(min-width: 768px) and (max-width: 1024px)');
-  const istabletpro = useMediaQuery('(min-width: 1024px) and (max-width: 100px)');
+  const istabletpro = useMediaQuery('(min-width: 1024px) and (max-width: 1100px)');
+  const isLargerDevice = useMediaQuery('(min-width: 960px)');
+  const isiPhoneSE = useMediaQuery('(min-width: 375px) and (max-width: 425px)');
 
-  const getButtonMarginLeft = () => {
-    if (isMobile) {
-      return "32vh"; // For other mobile devices
-    } else if (isiPhone12) {
-      return "32vh"
-    } else if (istablet) {
-      return "29vh"
-    } else {
-      return "40vh"; // Default for larger devices
-    }
+  const getCardStyles = () => {
+    
+    return {
+      cursor: "pointer",
+      marginTop: "-30px",
+      height: '155px',
+      marginBottom: {
+        xs: "0px", // Mobile view
+        md: "-5px" // Default larger devices
+      },
+      transition: "all 0.3s ease",
+      // Apply marginLeft only for larger devices
+      ...(isLargerDevice && {
+        marginLeft: '5vh',
+      }),
+ '@media (min-width: 768px)': {
+  marginLeft: '5vh',
+  marginRight: '-5vh', // Increase width for larger devices
+},
+      
+    };
   };
-
-  const getLeftPosition = () => {
-    if (isiPhone678) {
-      return "50%"; // For iPhone 6/7/8
-    } else if (isMobile) {
-      return "50%"; // For other mobile devices
-    } else if (istablet) {
-      return "50%";
-    } else {
-      return "59.3%"; // Default for larger devices
-    }
-  };
-
-  const getTopPosition = () => {
-    if (isiPhone678) {
-      return "60%";
-    } else {
-      return "50%";
-    }
-  };
-
-  const getWidth = () => {
-    if (isiPhone678) {
-      return "350px"; // Adjust width for iPhone 6/7/8
-    } else if (istablet) {
-      return "50%"
-    } else {
-      return "100%"; // Adjusted for full width
-    }
-  };
-
-  const getCardStyles = () => ({
-    cursor: "pointer",
-    marginTop: "-30px",
-    width:'100%',
-    height:'155px',
-    marginBottom: {
-      xs: "0px", // Mobile view
-      md: "-5px" // Default larger devices
-    },
-    transition: "all 0.3s ease",
-  });
 
   return (
-    <Card ref={cardRef} sx={getCardStyles()}>
+    <Card ref={cardRef} sx={getCardStyles()} style={{ width: window.innerWidth >= 425 ? "110%" : window.innerWidth >= 375 ? "124%" : window.innerWidth >= 320 ? "127%" :'100%',}}>
       <MDBox display="flex" justifyContent="space-between" pt={1} px={2}>
        
         <MDBox textAlign="right" lineHeight={1.25}>

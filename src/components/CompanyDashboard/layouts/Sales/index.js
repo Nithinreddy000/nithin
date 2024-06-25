@@ -69,7 +69,7 @@ function Dashboard() {
     <DashboardLayout>
       <DashboardNavbar onSearch={handleSearch} />
       <MDBox py={3} >
-        <h3 style={{paddingLeft: '10px',fontFamily: 'Poppins, sans-serif',paddingTop:'0%' ,marginTop:'0%'}}>INWARD</h3>
+        <h3 style={{paddingLeft: '10px',fontFamily: 'Poppins, sans-serif',paddingTop:'0%' ,marginTop:'0%'}}>SALES</h3>
         <div className="swiper-container">
         <Swiper
         spaceBetween={16}
@@ -84,6 +84,9 @@ function Dashboard() {
           1300: {
             slidesPerView: 3, // 4 slides per view for screens larger than 1300px
           },
+          2000:{
+            slidesPerView: 4,
+          }
           // Add more breakpoints if needed
         }}
       
@@ -116,7 +119,8 @@ function Dashboard() {
                               Processing: {20}
                             </div>
                             <br />
-                  <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '1px' ,fontSize:'12px'}}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '1px' ,
+                    fontSize: window.innerWidth == 320 ? "8px" : window.innerWidth == 1024 ? "16px" : window.innerWidth == 768 ? "11px" : window.innerWidth == 360 ? "10px" : window.innerWidth == 390 ? "11px" : window.innerWidth == 375 ? "10px" : window.innerWidth == 344 ?"9px":"12px"}}>
                     <div style={{ textAlign: 'left', flex: 1 }}>
                       <div>Quantity&nbsp;&nbsp;</div>
                       <div>400</div>
@@ -138,7 +142,10 @@ function Dashboard() {
                                 color="primary"
                                 size="small"
                                 startIcon={<RegisterIcon />}
-                                style={{ marginLeft: '23px', padding: '2px 6px', fontSize: '12px', color: 'white' }}
+                                style={{ marginLeft: window.innerWidth >= 2561 ? "240px" :  window.innerWidth == 2560 ? "180px" : window.innerWidth == 320 ? "12px" : window.innerWidth == 1024 ? "30px" :  window.innerWidth == 360 ? "13px" :  window.innerWidth == 412 ? "15px" :  window.innerWidth == 390 ? "13px" : window.innerWidth == 414 ? "17px" : window.innerWidth == 375 ? "21px" : window.innerWidth == 344 ? "10px" : "23px",
+                                   padding: '2px 6px', 
+                                   fontSize:window.innerWidth == 320 ? "9px" : window.innerWidth == 360 ? "10px" : window.innerWidth == 375 ? "11px" : window.innerWidth == 344 ?"10px":"12px", 
+                                   color: 'white' }}
                                 onClick={() => navigate('/tmt_register')} 
                               >
                                 Register

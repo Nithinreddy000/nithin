@@ -72,6 +72,9 @@ function Dashboard() {
           1300: {
             slidesPerView: 4, // 4 slides per view for screens larger than 1300px
           },
+          2560: {
+            slidesPerView: 6, // 4 slides per view for screens larger than 1300px
+          },
           // Add more breakpoints if needed
         }}
       
@@ -344,6 +347,9 @@ function Dashboard() {
           },
           1300: {
             slidesPerView: 4, // 4 slides per view for screens larger than 1300px
+          },
+          2560: {
+            slidesPerView: 6, // 4 slides per view for screens larger than 1300px
           },
           // Add more breakpoints if needed
         }}
